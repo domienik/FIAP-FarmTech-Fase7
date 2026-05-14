@@ -6,18 +6,18 @@ from pathlib import Path
 import streamlit as st
 
 
-# app.py está dentro de ANO1/FASE7
 FASE7_DIR = Path(__file__).resolve().parent
-ANO1_DIR = FASE7_DIR.parent
+PAGES_DIR = FASE7_DIR / "pages"
 
-FASE7_PAGES_DIR = FASE7_DIR / "pages"
-FASE4_DIR = ANO1_DIR / "FASE4" / "CAP1"
+# Assets da Fase 4
+FASE4_ASSETS_DIR = FASE7_DIR / "assets" / "fase4" / "cap1"
 
 PAGINAS = {
-    "Fase 4 - Home": FASE7_PAGES_DIR / "fase4_home.py",
-    "Fase 4 - Exploração": FASE7_PAGES_DIR / "fase4_exploracao.py",
-    "Fase 4 - Modelagem": FASE7_PAGES_DIR / "fase4_modelagem.py",
-    "Fase 1 - Base de Dados": FASE7_PAGES_DIR / "fase1_base_dados.py",
+    "Fase 4 - Home": PAGES_DIR / "fase4_home.py",
+    "Fase 4 - Exploração": PAGES_DIR / "fase4_exploracao.py",
+    "Fase 4 - Modelagem": PAGES_DIR / "fase4_modelagem.py",
+    "Fase 1 - Base de Dados": PAGES_DIR / "fase1_base_dados.py",
+    "Fase 2 - IoT": PAGES_DIR / "fase2_iot.py",
 }
 
 st.set_page_config(
@@ -25,6 +25,14 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
+
+# Permite importar páginas da FASE7/pages
+if str(PAGES_DIR) not in sys.path:
+    sys.path.insert(0, str(PAGES_DIR))
+
+# Permite importar utils.py da Fase 4
+if str(FASE4_ASSETS_DIR) not in sys.path:
+    sys.path.insert(0, str(FASE4_ASSETS_DIR))
 
 st.sidebar.title("Navegação")
 
@@ -40,23 +48,15 @@ if not arquivo.exists():
     st.code(str(arquivo))
     st.stop()
 
-# Permite imports das páginas da Fase 7
-if str(FASE7_PAGES_DIR) not in sys.path:
-    sys.path.insert(0, str(FASE7_PAGES_DIR))
-
-# Permite imports antigos da Fase 4, como utils.py
-if str(FASE4_DIR) not in sys.path:
-    sys.path.insert(0, str(FASE4_DIR))
-
-# Evita conflito se alguma página antiga tiver st.set_page_config()
+# Evita conflito se alguma página também usar st.set_page_config()
 st.set_page_config = lambda *args, **kwargs: None
 
-# Para páginas copiadas/adaptadas da Fase 4, usamos a pasta original como base
+# Algumas páginas da Fase 4 podem depender do CSV no diretório atual
 pasta_atual = Path.cwd()
 
 try:
     if pagina.startswith("Fase 4"):
-        os.chdir(FASE4_DIR)
+        os.chdir(FASE4_ASSETS_DIR)
     else:
         os.chdir(FASE7_DIR)
 
