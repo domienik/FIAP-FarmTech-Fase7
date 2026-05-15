@@ -19,6 +19,16 @@ ARQUIVO_RHISTORY = DATA_SCIENCE_DIR / ".Rhistory"
 ARQUIVO_DADOS_SENSORES = DATA_SCIENCE_DIR / "dados_sensores.csv"
 ARQUIVO_MODELO_RDS = DATA_SCIENCE_DIR / "modelo_bomba.rds"
 
+CAP6_DIR = FASE2_DIR / "cap6"
+
+CAP6_APP = CAP6_DIR / "app.py"
+CAP6_ORACLE_CONFIG = CAP6_DIR / "referencia de configuracao Oracle"
+
+CAP7_DIR = FASE2_DIR / "cap7"
+
+CAP7_SCRIPT_R = CAP7_DIR / "script_novo.R"
+CAP7_EXCEL = CAP7_DIR / "tabela_formatada.xlsx"
+
 st.title("📡 Fase 2 - IoT, Sensores e ESP32")
 
 st.write("""
@@ -28,12 +38,36 @@ sensores, links de apoio e evidências visuais do projeto.
 
 st.divider()
 
-tab_links, tab_esp32, tab_galeria, tab_data_science = st.tabs([
-    "🔗 Links",
-    "🤖 Código ESP32",
-    "🖼️ Galeria",
-    "📊 Data Science"
+tab_cap1, tab_cap6, tab_cap7 = st.tabs([
+    "📌 CAP1 - ESP32 e Sensores",
+    "☁️ CAP6 - ORACLE",
+    "📊 CAP7 - Data Science R"
 ])
+
+# =========================
+# ABA CAP1
+# =========================
+
+with tab_cap1:
+    st.header("📌 CAP1 - ESP32, Sensores e Data Science")
+
+    st.write("""
+    Este capítulo reúne os materiais principais da Fase 2, incluindo links do projeto,
+    código do ESP32, imagens da montagem/simulação e arquivos de Data Science.
+    """)
+
+    tab_links, tab_esp32, tab_galeria, tab_data_science = st.tabs([
+        "🔗 Links",
+        "🤖 Código ESP32",
+        "🖼️ Galeria",
+        "📊 Data Science"
+    ])
+
+    # aqui dentro ficam seus blocos antigos:
+    # with tab_links:
+    # with tab_esp32:
+    # with tab_galeria:
+    # with tab_data_science:
 
 # =========================
 # ABA LINKS
@@ -324,6 +358,249 @@ with tab_data_science:
             st.warning("Arquivo modelo_bomba.rds não encontrado.")
             st.code(str(ARQUIVO_MODELO_RDS))
 
+with tab_cap6:
+    st.header("☁️ CAP6 - Python, Oracle e Gestão de Colheita")
+
+    st.write("""
+    O CAP6 apresenta um sistema em Python para gestão de operações de colheita
+    de cana-de-açúcar. A aplicação permite cadastrar talhões, registrar operações,
+    calcular alertas de perda e salvar os dados em relatório, JSON ou banco Oracle.
+    """)
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Tema", "Colheita")
+    col2.metric("Banco", "Oracle")
+    col3.metric("Alerta", "Perda (%)")
+
+    st.divider()
+
+    tab_cap6_resumo, tab_cap6_codigo, tab_cap6_oracle = st.tabs([
+        "📌 Resumo",
+        "🐍 Código Python",
+        "🗄️ Configuração Oracle"
+    ])
+
+    # =========================
+    # RESUMO
+    # =========================
+    with tab_cap6_resumo:
+        st.subheader("📌 Funcionalidades do Sistema")
+
+        st.write("""
+        O sistema trabalha com dois conjuntos principais de dados:
+
+        - **Talhões:** áreas agrícolas cadastradas com ID, nome e área.
+        - **Operações:** registros de colheita com data, peso colhido, perda e alerta.
+
+        A lógica de alerta considera a porcentagem de perda:
+
+        - **Baixa:** menor que 8%
+        - **Média:** entre 8% e 15%
+        - **Alta:** maior que 15%
+        """)
+
+        st.subheader("▶️ Como executar")
+
+        if CAP6_APP.exists():
+            st.code(
+                f"python {CAP6_APP.relative_to(FASE7_DIR)}",
+                language="bash"
+            )
+        else:
+            st.warning("Arquivo app.py do CAP6 não encontrado.")
+            st.code(str(CAP6_APP))
+
+        st.info("""
+        Antes de usar a integração com Oracle, é necessário instalar a biblioteca:
+
+        pip install oracledb
+        """)
+
+    # =========================
+    # CÓDIGO PYTHON
+    # =========================
+    with tab_cap6_codigo:
+        st.subheader("🐍 Código principal - app.py")
+
+        if CAP6_APP.exists():
+            st.success(f"Arquivo encontrado: {CAP6_APP.relative_to(FASE7_DIR)}")
+
+            codigo = CAP6_APP.read_text(encoding="utf-8", errors="ignore")
+
+            st.code(codigo, language="python")
+
+            with open(CAP6_APP, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar app.py",
+                    data=f,
+                    file_name=CAP6_APP.name,
+                    mime="text/x-python"
+                )
+        else:
+            st.warning("Arquivo app.py não encontrado.")
+            st.code(str(CAP6_APP))
+
+    # =========================
+    # CONFIGURAÇÃO ORACLE
+    # =========================
+    with tab_cap6_oracle:
+        st.subheader("🗄️ Referência de Configuração Oracle")
+
+        st.write("""
+        A integração com Oracle depende das variáveis de ambiente abaixo:
+
+        - `ORA_USER`
+        - `ORA_PASS`
+        - `ORA_DSN`
+        """)
+
+        if CAP6_ORACLE_CONFIG.exists():
+            st.success(f"Arquivo encontrado: {CAP6_ORACLE_CONFIG.relative_to(FASE7_DIR)}")
+
+            conteudo = CAP6_ORACLE_CONFIG.read_text(encoding="utf-8", errors="ignore")
+            st.code(conteudo, language="text")
+
+            with open(CAP6_ORACLE_CONFIG, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar referência Oracle",
+                    data=f,
+                    file_name=CAP6_ORACLE_CONFIG.name,
+                    mime="text/plain"
+                )
+        else:
+            st.warning("Arquivo de referência Oracle não encontrado.")
+            st.code(str(CAP6_ORACLE_CONFIG))
+
+with tab_cap7:
+    st.header("📊 CAP7 - Estatística com R e Base Excel")
+
+    st.write("""
+    O CAP7 trabalha com uma base de dados em Excel relacionada ao agronegócio
+    e uma análise exploratória feita em R. A proposta envolve variáveis
+    quantitativas e qualitativas, medidas estatísticas e visualizações gráficas.
+    """)
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Base mínima", "30 linhas")
+    col2.metric("Colunas exigidas", "4")
+    col3.metric("Ferramenta", "R + Excel")
+
+    st.divider()
+
+    tab_cap7_resumo, tab_cap7_excel, tab_cap7_r = st.tabs([
+        "📌 Resumo",
+        "📄 Base Excel",
+        "📊 Código R"
+    ])
+
+    # =========================
+    # RESUMO
+    # =========================
+    with tab_cap7_resumo:
+        st.subheader("📌 Requisitos do CAP7")
+
+        st.write("""
+        Nesta atividade, foi necessário pesquisar dados públicos relacionados
+        ao agronegócio e criar uma base em Excel contendo pelo menos:
+
+        - Uma variável quantitativa discreta
+        - Uma variável quantitativa contínua
+        - Uma variável qualitativa nominal
+        - Uma variável qualitativa ordinal
+
+        Em seguida, foi feita uma análise exploratória em R com:
+
+        - Medidas de tendência central
+        - Medidas de dispersão
+        - Medidas separatrizes
+        - Análise gráfica de variável quantitativa
+        - Análise gráfica de variável qualitativa
+        """)
+
+        st.subheader("📚 Fontes sugeridas no enunciado")
+
+        st.markdown("""
+        - [CONAB](https://www.conab.gov.br/)
+        - [IBGE](https://www.ibge.gov.br/)
+        - [MAPA](https://www.gov.br/agricultura/pt-br)
+        - [Embrapa](https://www.embrapa.br/)
+        - [INPE](https://www.gov.br/inpe/pt-br)
+        - [CNA Brasil](https://www.cnabrasil.org.br/)
+        """)
+
+        st.subheader("▶️ Como executar o script R")
+
+        if CAP7_SCRIPT_R.exists():
+            st.code(
+                f"Rscript {CAP7_SCRIPT_R.relative_to(FASE7_DIR)}",
+                language="bash"
+            )
+        else:
+            st.warning("Arquivo R do CAP7 não encontrado.")
+            st.code(str(CAP7_SCRIPT_R))
+
+    # =========================
+    # EXCEL
+    # =========================
+    with tab_cap7_excel:
+        st.subheader("📄 Base de Dados em Excel")
+
+        if CAP7_EXCEL.exists():
+            st.success(f"Arquivo encontrado: {CAP7_EXCEL.relative_to(FASE7_DIR)}")
+
+            try:
+                df_excel = pd.read_excel(CAP7_EXCEL)
+
+                st.dataframe(df_excel, use_container_width=True)
+
+                col1, col2, col3 = st.columns(3)
+                col1.metric("Linhas", df_excel.shape[0])
+                col2.metric("Colunas", df_excel.shape[1])
+                col3.metric("Arquivo", CAP7_EXCEL.name)
+
+                st.subheader("📈 Prévia estatística")
+                st.dataframe(df_excel.describe(include="all"), use_container_width=True)
+
+            except Exception as erro:
+                st.error("Não foi possível carregar o Excel.")
+                st.code(str(erro))
+
+            with open(CAP7_EXCEL, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar base Excel",
+                    data=f,
+                    file_name=CAP7_EXCEL.name,
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+        else:
+            st.warning("Arquivo Excel do CAP7 não encontrado.")
+            st.code(str(CAP7_EXCEL))
+
+    # =========================
+    # CÓDIGO R
+    # =========================
+    with tab_cap7_r:
+        st.subheader("📊 Script R - Análise Exploratória")
+
+        if CAP7_SCRIPT_R.exists():
+            st.success(f"Arquivo encontrado: {CAP7_SCRIPT_R.relative_to(FASE7_DIR)}")
+
+            codigo_r = CAP7_SCRIPT_R.read_text(encoding="utf-8", errors="ignore")
+
+            st.code(codigo_r, language="r")
+
+            with open(CAP7_SCRIPT_R, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar script R",
+                    data=f,
+                    file_name=CAP7_SCRIPT_R.name,
+                    mime="text/plain"
+                )
+        else:
+            st.warning("Arquivo R do CAP7 não encontrado.")
+            st.code(str(CAP7_SCRIPT_R))
 
 st.divider()
 
