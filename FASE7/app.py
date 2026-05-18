@@ -13,12 +13,10 @@ PAGES_DIR = FASE7_DIR / "pages"
 FASE4_ASSETS_DIR = FASE7_DIR / "assets" / "fase4" / "cap1"
 
 PAGINAS = {
-    "Fase 4 - Home": PAGES_DIR / "fase4_home.py",
-    "Fase 4 - Exploração": PAGES_DIR / "fase4_exploracao.py",
-    "Fase 4 - Modelagem": PAGES_DIR / "fase4_modelagem.py",
     "Fase 1 - Base de Dados": PAGES_DIR / "fase1_base_dados.py",
     "Fase 2 - IoT": PAGES_DIR / "fase2_iot.py",
     "Fase 3 - Banco de Dados Estruturado": PAGES_DIR / "fase3_banco_de_dados_estruturado.py",
+    "Fase 4 - Dashboard e Data Science": PAGES_DIR / "fase4_dashboard_data_science.py",
 }
 
 st.set_page_config(
