@@ -63,12 +63,11 @@ with tab_cap1:
 
     st.divider()
 
-    tab_resumo, tab_dataset, tab_notebooks, tab_aws, tab_readme = st.tabs([
+    tab_resumo, tab_dataset, tab_notebooks, tab_aws = st.tabs([
         "📌 Resumo",
         "🌾 Dataset",
         "📓 Notebooks",
         "☁️ AWS",
-        "📘 README"
     ])
 
     # =========================
@@ -256,16 +255,3 @@ with tab_cap1:
             st.markdown(conteudo)
         else:
             st.info("ROTEIRO_VIDEO.md não encontrado.")
-
-    # =========================
-    # README
-    # =========================
-    with tab_readme:
-        st.subheader("📘 README do CAP1")
-
-        if README_FILE.exists():
-            conteudo = README_FILE.read_text(encoding="utf-8", errors="ignore")
-            st.markdown(conteudo)
-        else:
-            st.warning("README.md não encontrado.")
-            st.code(str(README_FILE))
