@@ -17,6 +17,7 @@ PAGINAS = {
     "Fase 2 - IoT": PAGES_DIR / "fase2_iot.py",
     "Fase 3 - Banco de Dados Estruturado": PAGES_DIR / "fase3_banco_de_dados_estruturado.py",
     "Fase 4 - Dashboard e Data Science": PAGES_DIR / "fase4_dashboard_data_science.py",
+    "Fase 5 - AWS e Alertas": PAGES_DIR / "fase5_aws_alertas.py",
 }
 
 st.set_page_config(
