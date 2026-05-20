@@ -4,12 +4,10 @@ from pathlib import Path
 import streamlit as st
 
 
-# Esta página está em: ANO1/FASE7/pages/fase1_base_dados.py
-BASE_DIR = Path(__file__).resolve().parents[2]  # ANO1
-FASE7_DIR = BASE_DIR / "FASE7"
+BASE_DIR = Path(__file__).resolve().parents[1]
 
-FASE1_CAP1_DIR = FASE7_DIR / "assets" / "fase1" / "cap1"
-FASE1_CAP2_DIR = FASE7_DIR / "assets" / "fase1" / "cap2"
+FASE1_CAP1_DIR = BASE_DIR / "assets" / "fase1" / "cap1"
+FASE1_CAP2_DIR = BASE_DIR / "assets" / "fase1" / "cap2"
 
 arquivo_python = FASE1_CAP1_DIR / "lavouras.py"
 arquivo_r = FASE1_CAP1_DIR / "lavouras.R"
@@ -57,6 +55,7 @@ def mostrar_pdf(arquivo_pdf):
             )
     else:
         st.warning("PDF do CAP2 não encontrado.")
+        st.code(str(arquivo_pdf))
 
 
 st.title("🌾 Fase 1 - Base de Dados, Lavouras e Introdução à IA")
@@ -73,6 +72,7 @@ tab_cap1, tab_cap2 = st.tabs([
     "CAP1 - Lavouras e Estatística",
     "CAP2 - Teachable Machine"
 ])
+
 
 # =========================
 # CAP1
@@ -99,10 +99,8 @@ with tab_cap1:
 
     st.subheader("Código Python - Sistema de Lavouras")
 
-    st.write("Arquivo usado:")
-
     if arquivo_python.exists():
-        st.success(f"Encontrado: {arquivo_python.name}")
+        st.success(f"Encontrado: {arquivo_python.relative_to(BASE_DIR)}")
         mostrar_codigo(arquivo_python, "python")
 
         st.write("Comando para executar:")
@@ -118,10 +116,8 @@ with tab_cap1:
 
     st.subheader("📊 Código R - Análise Estatística")
 
-    st.write("Arquivo usado:")
-
     if arquivo_r.exists():
-        st.success(f"Encontrado: {arquivo_r.name}")
+        st.success(f"Encontrado: {arquivo_r.relative_to(BASE_DIR)}")
         mostrar_codigo(arquivo_r, "r")
 
         st.write("Comando para executar:")
@@ -157,7 +153,7 @@ with tab_cap2:
     st.subheader("📄 Relatório do Projeto")
 
     if arquivo_pdf.exists():
-        st.success(f"Encontrado: {arquivo_pdf.name}")
+        st.success(f"Encontrado: {arquivo_pdf.relative_to(BASE_DIR)}")
         mostrar_pdf(arquivo_pdf)
     else:
         st.warning("Relatório PDF não encontrado.")
@@ -168,8 +164,7 @@ with tab_cap2:
     st.subheader("📦 Arquivo do Modelo Teachable Machine")
 
     if arquivo_tm.exists():
-        st.success(f"Encontrado: {arquivo_tm.name}")
-        st.write(f"✅ `{arquivo_tm.relative_to(BASE_DIR)}`")
+        st.success(f"Encontrado: {arquivo_tm.relative_to(BASE_DIR)}")
 
         with open(arquivo_tm, "rb") as f:
             st.download_button(
