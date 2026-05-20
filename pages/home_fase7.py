@@ -16,24 +16,6 @@ st.divider()
 def link_pagina(nome_pagina):
     return f"?pagina={quote(nome_pagina)}"
 
-# =========================
-# OBJETIVO
-# =========================
-st.header("🎯 Objetivo da Fase 7")
-
-st.write("""
-O objetivo da Fase 7 é consolidar as entregas anteriores em uma solução integrada
-para gestão e análise no contexto do agronegócio. A aplicação centraliza dados,
-modelos, simulações, dashboards, visão computacional e serviços em nuvem.
-""")
-
-st.info("""
-A Fase 7 funciona como uma camada final de integração, conectando os conteúdos
-das Fases 1, 2, 3, 4, 5 e 6 em uma dashboard única.
-""")
-
-st.divider()
-
 
 # =========================
 # BOTÕES DE NAVEGAÇÃO
