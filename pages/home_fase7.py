@@ -137,7 +137,7 @@ col1, col2, col3 = st.columns(3)
 
 col1.metric("Fases integradas", "6")
 col2.metric("Dashboard", "Streamlit")
-col3.metric("Organização", "FASE7/assets")
+col3.metric("Organização", "assets/")
 
 st.markdown("""
 | Item | Status |
@@ -163,12 +163,12 @@ st.divider()
 st.header("🗂️ Como a dashboard está organizada")
 
 st.write("""
-A aplicação foi organizada em uma pasta central chamada `FASE7`, separando as
+A aplicação foi organizada diretamente na raiz do repositório, separando as
 páginas do Streamlit dos arquivos usados por cada fase.
 """)
 
 st.code("""
-FASE7/
+FIAP-FarmTech-Fase7/
 ├── app.py
 ├── pages/
 │   ├── home_fase7.py
@@ -178,13 +178,15 @@ FASE7/
 │   ├── fase4_dashboard_data_science.py
 │   ├── fase5_aws_alertas.py
 │   └── fase6_visao_computacional.py
-└── assets/
-    ├── fase1/
-    ├── fase2/
-    ├── fase3/
-    ├── fase4/
-    ├── fase5/
-    └── fase6/
+├── assets/
+│   ├── fase1/
+│   ├── fase2/
+│   ├── fase3/
+│   ├── fase4/
+│   ├── fase5/
+│   └── fase6/
+├── .streamlit/
+└── .gitignore
 """, language="text")
 
 

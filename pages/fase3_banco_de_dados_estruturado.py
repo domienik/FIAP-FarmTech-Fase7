@@ -411,11 +411,7 @@ with tab_cap10:
         else:
             st.warning("Notebook do CAP10 não encontrado.")
             st.code(str(CAP10_NOTEBOOK))
-# =========================
-# GS - GLOBAL SOLUTION
-# =========================
-# =========================
-# GS - GLOBAL SOLUTION
+
 # =========================
 # GS - GLOBAL SOLUTION
 # =========================
