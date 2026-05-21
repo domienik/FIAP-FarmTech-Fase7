@@ -3,8 +3,8 @@ from pathlib import Path
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parents[1]
-FASE6_DIR = FASE7_DIR / "assets" / "fase6"
+BASE_DIR = Path(__file__).resolve().parents[1]
+FASE6_DIR = BASE_DIR / "assets" / "fase6"
 CAP1_DIR = FASE6_DIR / "cap1"
 
 README_FILE = CAP1_DIR / "README.md"
@@ -132,7 +132,7 @@ data/dataset/
 """, language="text")
 
         if DATA_YAML.exists():
-            st.success(f"Arquivo encontrado: {DATA_YAML.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {DATA_YAML.relative_to(BASE_DIR)}")
             conteudo = DATA_YAML.read_text(encoding="utf-8", errors="ignore")
             st.code(conteudo, language="yaml")
         else:
@@ -162,7 +162,7 @@ data/dataset/
         st.subheader("📓 Notebook End-to-End")
 
         if NOTEBOOK.exists():
-            st.success(f"Arquivo encontrado: {NOTEBOOK.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {NOTEBOOK.relative_to(BASE_DIR)}")
 
             st.write("""
             O notebook principal reúne o pipeline completo: preparação do dataset,
@@ -398,7 +398,7 @@ with tab_ir_alem:
         st.subheader("📓 Notebook - Ir Além")
 
         if IR_ALEM_NOTEBOOK.exists():
-            st.success(f"Arquivo encontrado: {IR_ALEM_NOTEBOOK.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {IR_ALEM_NOTEBOOK.relative_to(BASE_DIR)}")
 
             st.write("""
             O notebook contém a implementação com Transfer Learning, Fine Tuning,

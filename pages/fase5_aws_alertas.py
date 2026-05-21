@@ -4,8 +4,8 @@ import pandas as pd
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parents[1]
-FASE5_DIR = FASE7_DIR / "assets" / "fase5"
+BASE_DIR = Path(__file__).resolve().parents[1]
+FASE5_DIR = BASE_DIR / "assets" / "fase5"
 CAP1_DIR = FASE5_DIR / "cap1"
 
 README_FILE = CAP1_DIR / "README.md"
@@ -107,7 +107,7 @@ with tab_cap1:
         st.subheader("🌾 Dataset crop_yield.csv")
 
         if CROP_YIELD.exists():
-            st.success(f"Arquivo encontrado: {CROP_YIELD.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CROP_YIELD.relative_to(BASE_DIR)}")
 
             try:
                 df = pd.read_csv(CROP_YIELD)
@@ -150,7 +150,7 @@ with tab_cap1:
 
         for notebook in notebooks:
             if notebook.exists():
-                st.success(f"Arquivo encontrado: {notebook.relative_to(FASE7_DIR)}")
+                st.success(f"Arquivo encontrado: {notebook.relative_to(BASE_DIR)}")
 
                 with open(notebook, "rb") as f:
                     st.download_button(
@@ -167,13 +167,13 @@ with tab_cap1:
         st.subheader("🔧 Ir Além - Arduino")
 
         if IR_ALEM.exists():
-            st.success(f"Arquivo encontrado: {IR_ALEM.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {IR_ALEM.relative_to(BASE_DIR)}")
 
             try:
                 conteudo = IR_ALEM.read_text(encoding="utf-8", errors="ignore")
                 st.code(conteudo, language="text")
             except Exception:
-                st.write(f"✅ `{IR_ALEM.relative_to(FASE7_DIR)}`")
+                st.write(f"✅ `{IR_ALEM.relative_to(BASE_DIR)}`")
 
             with open(IR_ALEM, "rb") as f:
                 st.download_button(

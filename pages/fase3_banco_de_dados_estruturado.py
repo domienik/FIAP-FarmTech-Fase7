@@ -6,8 +6,8 @@ import pandas as pd
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parents[1]
-FASE3_DIR = FASE7_DIR / "assets" / "fase3"
+BASE_DIR = Path(__file__).resolve().parents[1]
+FASE3_DIR = BASE_DIR / "assets" / "fase3"
 CAP1_DIR = FASE3_DIR / "cap1"
 
 #Cap 10
@@ -114,7 +114,7 @@ CREATE TABLE SENSORES_FARMTECH (
         """)
 
         if CSV_SENSORES.exists():
-            st.success(f"Arquivo encontrado: {CSV_SENSORES.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CSV_SENSORES.relative_to(BASE_DIR)}")
 
             try:
                 df = pd.read_csv(CSV_SENSORES)
@@ -158,7 +158,7 @@ CREATE TABLE SENSORES_FARMTECH (
         """)
 
         if SQL_FILE.exists():
-            st.success(f"Arquivo encontrado: {SQL_FILE.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {SQL_FILE.relative_to(BASE_DIR)}")
 
             codigo_sql = SQL_FILE.read_text(encoding="utf-8", errors="ignore")
             st.code(codigo_sql, language="sql")
@@ -241,10 +241,9 @@ CREATE TABLE SENSORES_FARMTECH (
     with tab_ir_alem:
         st.header("🚀 Programa Ir Além")
 
-        tab_ir1, tab_ir2, tab_readme = st.tabs([
+        tab_ir1, tab_ir2 = st.tabs([
             "📊 Ir Além 1 - Dashboard",
             "🧠 Ir Além 2 - Machine Learning",
-            "📘 README"
         ])
 
         with tab_ir1:
@@ -283,7 +282,7 @@ CREATE TABLE SENSORES_FARMTECH (
             if notebooks:
                 st.write("Notebook(s) encontrado(s):")
                 for notebook in notebooks:
-                    st.write(f"✅ `{notebook.relative_to(FASE7_DIR)}`")
+                    st.write(f"✅ `{notebook.relative_to(BASE_DIR)}`")
 
                     with open(notebook, "rb") as f:
                         st.download_button(
@@ -295,28 +294,7 @@ CREATE TABLE SENSORES_FARMTECH (
             else:
                 st.info("Nenhum notebook .ipynb encontrado na pasta da Fase 3.")
 
-        with tab_readme:
-            st.subheader("📘 README da Fase 3")
 
-            if README_FILE.exists():
-                conteudo = README_FILE.read_text(encoding="utf-8", errors="ignore")
-
-                st.markdown(conteudo)
-
-                links = re.findall(r"https?://[^\s)]+", conteudo)
-
-                if links:
-                    st.subheader("🔗 Links encontrados")
-                    for i, link in enumerate(links, start=1):
-                        st.markdown(f"{i}. [{link}]({link})")
-            else:
-                st.warning("README.md da Fase 3 não encontrado.")
-                st.code(str(README_FILE))
-
-
-# =========================
-# CAP10
-# =========================
 # =========================
 # CAP10
 # =========================
@@ -410,7 +388,7 @@ with tab_cap10:
         st.subheader("📓 Notebook de Aprendizado de Máquina")
 
         if CAP10_NOTEBOOK.exists():
-            st.success(f"Arquivo encontrado: {CAP10_NOTEBOOK.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP10_NOTEBOOK.relative_to(BASE_DIR)}")
 
             st.write("""
             O notebook contém a análise exploratória, visualizações, comparação
@@ -532,7 +510,7 @@ with tab_gs:
         st.subheader("📄 PDF da Global Solution")
 
         if GS_PDF.exists():
-            st.success(f"Arquivo encontrado: {GS_PDF.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {GS_PDF.relative_to(BASE_DIR)}")
             mostrar_pdf(GS_PDF, "📥 Baixar PDF da GS")
         else:
             st.warning("PDF da Global Solution não encontrado.")
@@ -551,7 +529,7 @@ with tab_gs:
         st.subheader("📊 Dataset - Burnout Predictor")
 
         if GS_CSV.exists():
-            st.success(f"Arquivo encontrado: {GS_CSV.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {GS_CSV.relative_to(BASE_DIR)}")
 
             try:
                 df_gs = pd.read_csv(GS_CSV)
@@ -599,7 +577,7 @@ with tab_gs:
         st.subheader("📓 Notebook - Burnout Predictor")
 
         if GS_NOTEBOOK.exists():
-            st.success(f"Arquivo encontrado: {GS_NOTEBOOK.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {GS_NOTEBOOK.relative_to(BASE_DIR)}")
 
             st.write("""
             O notebook reúne as etapas de análise, tratamento dos dados,

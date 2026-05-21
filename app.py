@@ -6,11 +6,12 @@ from pathlib import Path
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parent
-PAGES_DIR = FASE7_DIR / "pages"
+BASE_DIR = Path(__file__).resolve().parent
+PAGES_DIR = BASE_DIR / "pages"
+ASSETS_DIR = BASE_DIR / "assets"
 
-# Assets da Fase 4
-FASE4_ASSETS_DIR = FASE7_DIR / "assets" / "fase4" / "cap1"
+# Assets usados pelas páginas antigas da Fase 4
+FASE4_ASSETS_DIR = ASSETS_DIR / "fase4" / "cap1"
 
 PAGINAS = {
     "Home - Integração Fase 7": PAGES_DIR / "home_fase7.py",
@@ -28,11 +29,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Permite importar páginas da FASE7/pages
+# Permite importar arquivos das páginas
 if str(PAGES_DIR) not in sys.path:
     sys.path.insert(0, str(PAGES_DIR))
 
-# Permite importar utils.py da Fase 4
+# Permite importar utils.py usado pela Fase 4
 if str(FASE4_ASSETS_DIR) not in sys.path:
     sys.path.insert(0, str(FASE4_ASSETS_DIR))
 
@@ -74,17 +75,17 @@ if not arquivo.exists():
     st.stop()
 
 
-# Evita conflito se alguma página também usar st.set_page_config()
+# Evita conflito caso alguma página também use st.set_page_config()
 st.set_page_config = lambda *args, **kwargs: None
 
-# Algumas páginas da Fase 4 podem depender do CSV no diretório atual
+# Algumas páginas antigas da Fase 4 dependem do CSV no diretório atual
 pasta_atual = Path.cwd()
 
 try:
     if pagina.startswith("Fase 4"):
         os.chdir(FASE4_ASSETS_DIR)
     else:
-        os.chdir(FASE7_DIR)
+        os.chdir(BASE_DIR)
 
     runpy.run_path(str(arquivo), run_name="__main__")
 

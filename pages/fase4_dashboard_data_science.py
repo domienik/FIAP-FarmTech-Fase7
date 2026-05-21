@@ -6,17 +6,17 @@ from pathlib import Path
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 # CAP1 - Dashboard original da Fase 4
-CAP1_DIR = FASE7_DIR / "assets" / "fase4" / "cap1"
+CAP1_DIR = BASE_DIR / "assets" / "fase4" / "cap1"
 
 FASE4_HOME = CAP1_DIR / "fase4_home.py"
 FASE4_EXPLORACAO = CAP1_DIR / "fase4_exploracao.py"
 FASE4_MODELAGEM = CAP1_DIR / "fase4_modelagem.py"
 
 # CAP3 - Seeds Classification ML
-CAP3_DIR = FASE7_DIR / "assets" / "fase4" / "cap3"
+CAP3_DIR = BASE_DIR / "assets" / "fase4" / "cap3"
 CAP3_NOTEBOOK = CAP3_DIR / "seeds_classification_ml.ipynb"
 
 
@@ -169,7 +169,7 @@ with tab_cap3:
         st.subheader("📓 Notebook - Seeds Classification ML")
 
         if CAP3_NOTEBOOK.exists():
-            st.success(f"Arquivo encontrado: {CAP3_NOTEBOOK.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP3_NOTEBOOK.relative_to(BASE_DIR)}")
 
             st.write("""
             O notebook contém a análise exploratória, pré-processamento,

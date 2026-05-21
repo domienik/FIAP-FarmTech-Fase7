@@ -5,8 +5,8 @@ import pandas as pd
 import streamlit as st
 
 
-FASE7_DIR = Path(__file__).resolve().parents[1]
-FASE2_DIR = FASE7_DIR / "assets" / "fase2"
+BASE_DIR = Path(__file__).resolve().parents[1]
+FASE2_DIR = BASE_DIR / "assets" / "fase2"
 
 ESP32_DIR = FASE2_DIR / "cap1" / "ESP32"
 CODIGO_ESP32 = ESP32_DIR / "codigo_esp32.ino"
@@ -100,7 +100,7 @@ with tab_links:
     else:
         links_file = links_files[0]
 
-        st.success(f"Arquivo encontrado: {links_file.relative_to(FASE7_DIR)}")
+        st.success(f"Arquivo encontrado: {links_file.relative_to(BASE_DIR)}")
 
         conteudo = links_file.read_text(encoding="utf-8", errors="ignore")
         links = re.findall(r"https?://[^\s]+", conteudo)
@@ -129,7 +129,7 @@ with tab_esp32:
     """)
 
     if CODIGO_ESP32.exists():
-        st.success(f"Arquivo encontrado: {CODIGO_ESP32.relative_to(FASE7_DIR)}")
+        st.success(f"Arquivo encontrado: {CODIGO_ESP32.relative_to(BASE_DIR)}")
 
         codigo = CODIGO_ESP32.read_text(encoding="utf-8", errors="ignore")
 
@@ -234,7 +234,7 @@ with tab_data_science:
         st.subheader("📦 Arquivo .RData")
 
         if ARQUIVO_RDATA.exists():
-            st.success(f"Arquivo encontrado: {ARQUIVO_RDATA.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {ARQUIVO_RDATA.relative_to(BASE_DIR)}")
 
             st.info("""
             O arquivo `.RData` armazena objetos do ambiente R, como datasets,
@@ -262,7 +262,7 @@ with tab_data_science:
         st.subheader("📜 Histórico de comandos R")
 
         if ARQUIVO_RHISTORY.exists():
-            st.success(f"Arquivo encontrado: {ARQUIVO_RHISTORY.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {ARQUIVO_RHISTORY.relative_to(BASE_DIR)}")
 
             conteudo = ARQUIVO_RHISTORY.read_text(encoding="utf-8", errors="ignore")
 
@@ -289,7 +289,7 @@ with tab_data_science:
         st.subheader("🌡️ Dados dos Sensores")
 
         if ARQUIVO_DADOS_SENSORES.exists():
-            st.success(f"Arquivo encontrado: {ARQUIVO_DADOS_SENSORES.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {ARQUIVO_DADOS_SENSORES.relative_to(BASE_DIR)}")
 
             try:
                 df = pd.read_csv(ARQUIVO_DADOS_SENSORES)
@@ -331,7 +331,7 @@ with tab_data_science:
         st.subheader("🧠 Modelo da Bomba - RDS")
 
         if ARQUIVO_MODELO_RDS.exists():
-            st.success(f"Arquivo encontrado: {ARQUIVO_MODELO_RDS.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {ARQUIVO_MODELO_RDS.relative_to(BASE_DIR)}")
 
             st.info("""
             O arquivo `.rds` é um objeto salvo pelo R. Ele pode conter um modelo treinado,
@@ -404,7 +404,7 @@ with tab_cap6:
 
         if CAP6_APP.exists():
             st.code(
-                f"python {CAP6_APP.relative_to(FASE7_DIR)}",
+                f"python {CAP6_APP.relative_to(BASE_DIR)}",
                 language="bash"
             )
         else:
@@ -424,7 +424,7 @@ with tab_cap6:
         st.subheader("🐍 Código principal - app.py")
 
         if CAP6_APP.exists():
-            st.success(f"Arquivo encontrado: {CAP6_APP.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP6_APP.relative_to(BASE_DIR)}")
 
             codigo = CAP6_APP.read_text(encoding="utf-8", errors="ignore")
 
@@ -456,7 +456,7 @@ with tab_cap6:
         """)
 
         if CAP6_ORACLE_CONFIG.exists():
-            st.success(f"Arquivo encontrado: {CAP6_ORACLE_CONFIG.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP6_ORACLE_CONFIG.relative_to(BASE_DIR)}")
 
             conteudo = CAP6_ORACLE_CONFIG.read_text(encoding="utf-8", errors="ignore")
             st.code(conteudo, language="text")
@@ -534,7 +534,7 @@ with tab_cap7:
 
         if CAP7_SCRIPT_R.exists():
             st.code(
-                f"Rscript {CAP7_SCRIPT_R.relative_to(FASE7_DIR)}",
+                f"Rscript {CAP7_SCRIPT_R.relative_to(BASE_DIR)}",
                 language="bash"
             )
         else:
@@ -548,7 +548,7 @@ with tab_cap7:
         st.subheader("📄 Base de Dados em Excel")
 
         if CAP7_EXCEL.exists():
-            st.success(f"Arquivo encontrado: {CAP7_EXCEL.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP7_EXCEL.relative_to(BASE_DIR)}")
 
             try:
                 df_excel = pd.read_excel(CAP7_EXCEL)
@@ -585,7 +585,7 @@ with tab_cap7:
         st.subheader("📊 Script R - Análise Exploratória")
 
         if CAP7_SCRIPT_R.exists():
-            st.success(f"Arquivo encontrado: {CAP7_SCRIPT_R.relative_to(FASE7_DIR)}")
+            st.success(f"Arquivo encontrado: {CAP7_SCRIPT_R.relative_to(BASE_DIR)}")
 
             codigo_r = CAP7_SCRIPT_R.read_text(encoding="utf-8", errors="ignore")
 
