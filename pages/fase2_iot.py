@@ -73,48 +73,47 @@ with tab_cap1:
 # ABA LINKS
 # =========================
 with tab_links:
-    with tab_links:
-        st.header("🔗 Links do Projeto")
+    st.header("🔗 Links do Projeto")
 
-        st.subheader("🎥 Vídeo de demonstração")
-        st.video("https://www.youtube.com/watch?v=ZCE25_D37qg")
+    st.subheader("🎥 Vídeo de demonstração")
+    st.video("https://www.youtube.com/watch?v=ZCE25_D37qg")
 
-        st.divider()
+    st.divider()
 
-        st.subheader("🖼️ Imagem do projeto")
-        st.image(
-            "https://i.imgur.com/hiLPUVm.png",
-            caption="Imagem demonstrativa do projeto ESP32",
-            use_container_width=True
-        )
+    st.subheader("🖼️ Imagem do projeto")
+    st.image(
+        "https://i.imgur.com/hiLPUVm.png",
+        caption="Imagem demonstrativa do projeto ESP32",
+        use_container_width=True
+    )
 
-        st.divider()
+    st.divider()
 
-        st.subheader("📎 Links adicionais")
+    st.subheader("📎 Links adicionais")
 
-        links_files = list(FASE2_DIR.rglob("links.txt"))
+    links_files = list(FASE2_DIR.rglob("links.txt"))
 
-    if not links_files:
-        st.warning("Nenhum arquivo links.txt encontrado dentro de assets/fase2.")
-        st.code(str(FASE2_DIR))
+if not links_files:
+    st.warning("Nenhum arquivo links.txt encontrado dentro de assets/fase2.")
+    st.code(str(FASE2_DIR))
+else:
+    links_file = links_files[0]
+
+    st.success(f"Arquivo encontrado: {links_file.relative_to(BASE_DIR)}")
+
+    conteudo = links_file.read_text(encoding="utf-8", errors="ignore")
+    links = re.findall(r"https?://[^\s]+", conteudo)
+
+    if links:
+        st.subheader("Links encontrados")
+
+        for i, link in enumerate(links, start=1):
+            st.markdown(f"{i}. [{link}]({link})")
     else:
-        links_file = links_files[0]
+        st.info("Nenhum link no formato http/https foi encontrado.")
 
-        st.success(f"Arquivo encontrado: {links_file.relative_to(BASE_DIR)}")
-
-        conteudo = links_file.read_text(encoding="utf-8", errors="ignore")
-        links = re.findall(r"https?://[^\s]+", conteudo)
-
-        if links:
-            st.subheader("Links encontrados")
-
-            for i, link in enumerate(links, start=1):
-                st.markdown(f"{i}. [{link}]({link})")
-        else:
-            st.info("Nenhum link no formato http/https foi encontrado.")
-
-        with st.expander("Ver conteúdo completo do links.txt"):
-            st.code(conteudo, language="text")
+    with st.expander("Ver conteúdo completo do links.txt"):
+        st.code(conteudo, language="text")
 
 
 # =========================
