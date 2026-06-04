@@ -99,8 +99,8 @@ fases = [
     {
         "fase": "Fase 5",
         "titulo": "AWS, Cloud e Alertas",
-        "descricao": "Previsão de rendimento de safra, análise de custos AWS e espaço reservado para os alertas da Fase 7.",
-        "status": "Parcialmente integrada"
+        "descricao": "Previsão de rendimento de safra, análise de custos em nuvem e serviço de alertas com AWS SNS para notificação por e-mail.",
+        "status": "Integrada"
     },
     {
         "fase": "Fase 6",
@@ -136,7 +136,7 @@ st.header("✅ Status geral da integração")
 col1, col2, col3 = st.columns(3)
 
 col1.metric("Fases integradas", "6")
-col2.metric("Dashboard", "Streamlit")
+col2.metric("Alertas AWS", "SNS")
 col3.metric("Organização", "assets/")
 
 st.markdown("""
@@ -148,9 +148,10 @@ st.markdown("""
 | Fase 4 integrada | ✅ Concluído |
 | Fase 5 integrada | ✅ Parcial |
 | Fase 6 integrada | ✅ Concluído |
-| Alertas AWS da Fase 7 | ⏳ Pendente |
-| README final | ⏳ Pendente |
-| Vídeo final | ⏳ Pendente |
+| Fase 5 integrada | ✅ Concluído |
+| Alertas AWS da Fase 7 | ✅ Concluído |
+| README final | ✅ Concluído  |
+| Vídeo final | ✅ Concluído  |
 """)
 
 
@@ -169,7 +170,9 @@ páginas do Streamlit dos arquivos usados por cada fase.
 
 st.code("""
 FIAP-FarmTech-Fase7/
+├── README.md
 ├── app.py
+├── requirements.txt
 ├── pages/
 │   ├── home_fase7.py
 │   ├── fase1_base_dados.py
@@ -185,6 +188,12 @@ FIAP-FarmTech-Fase7/
 │   ├── fase4/
 │   ├── fase5/
 │   └── fase6/
+├── docs/
+│   └── prints/
+├── aws/
+│   └── alerta_irrigacao_fase7/
+├── video/
+├── src/
 ├── .streamlit/
 └── .gitignore
 """, language="text")
@@ -196,26 +205,26 @@ st.divider()
 # =========================
 # ALERTAS AWS
 # =========================
-st.header("🚨 Aviso sobre os alertas AWS")
+st.header("Alertas AWS")
 
-st.warning("""
-A seção de alertas AWS ainda será finalizada pelo grupo. A ideia é demonstrar
-um fluxo em que sensores, modelos ou análises visuais possam gerar notificações
-por e-mail ou SMS usando serviços da AWS.
-""")
-
-st.write("""
-Exemplo de fluxo esperado:
+st.success("""
+A seção de alertas AWS foi integrada ao dashboard. O sistema utiliza dados de sensores
+agrícolas para verificar condições críticas e enviar notificações por e-mail usando AWS SNS.
 """)
 
 st.code("""
-Sensor ou modelo detecta problema
+dados_sensores.csv
         ↓
-Regra de alerta é ativada
+Script Python lê a última leitura
         ↓
-Serviço AWS processa o evento
+Sistema verifica regras críticas:
+- pH fora da faixa segura
+- umidade baixa
+- NPK abaixo do ideal com bomba ligada
         ↓
-E-mail ou SMS é enviado para o responsável
+AWS SNS publica a mensagem
+        ↓
+Funcionário recebe e-mail com a ação recomendada
 """, language="text")
 
 

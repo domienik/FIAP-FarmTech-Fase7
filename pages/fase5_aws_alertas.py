@@ -16,6 +16,13 @@ IR_ALEM = CAP1_DIR / "ir_alem"
 ROTEIRO_VIDEO = CAP1_DIR / "ROTEIRO_VIDEO.md"
 IMAGENS_DIR = CAP1_DIR / "ATV5_2"
 
+AWS_DIR = BASE_DIR / "aws" / "alerta_irrigacao_fase7"
+
+ALERTA_SCRIPT = AWS_DIR / "alerta_irrigacao_aws.py"
+ALERTA_CSV = AWS_DIR / "dados_sensores.csv"
+ALERTA_README = AWS_DIR / "README.md"
+ALERTA_PRINTS_DIR = AWS_DIR / "prints"
+
 
 st.title("☁️ Fase 5 - AWS, Cloud e Alertas")
 
@@ -36,12 +43,174 @@ tab_alertas, tab_cap1 = st.tabs([
 # ALERTAS FASE 7
 # =========================
 with tab_alertas:
-    st.header("🚨 Alertas da Fase 7")
+    st.header("🚨 Alertas AWS da Fase 7")
 
-    st.info("""
-    Esta aba será preenchida pelo grupo com o serviço de alerta solicitado na Fase 7,
-    usando AWS para envio de e-mail ou SMS a partir de sensores ou análises visuais.
+    st.write("""
+    Esta seção apresenta o serviço de alertas desenvolvido para a Fase 7.
+    O sistema lê dados de sensores agrícolas, verifica condições críticas e
+    envia notificações por e-mail usando AWS SNS.
     """)
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Serviço AWS", "SNS")
+    col2.metric("Região", "sa-east-1")
+    col3.metric("Entrega", "E-mail")
+
+    st.divider()
+
+    tab_resumo_alerta, tab_codigo_alerta, tab_dados_alerta, tab_evidencias_alerta, tab_readme_alerta = st.tabs([
+        "📌 Resumo",
+        "🐍 Código",
+        "📊 Dados",
+        "🖼️ Evidências",
+        "📘 README"
+    ])
+
+    with tab_resumo_alerta:
+        st.subheader("📌 Funcionamento do Alerta")
+
+        st.write("""
+        O módulo monitora os dados agrícolas e dispara alertas automáticos quando
+        encontra condições críticas relacionadas ao solo, sensores ou manejo da irrigação.
+        """)
+
+        st.subheader("⚠️ Regras de alerta")
+
+        st.markdown("""
+        | Parâmetro | Regra crítica |
+        |---|---|
+        | pH | Abaixo de 4.5 ou acima de 7.5 |
+        | NPK | N < 8, P < 80 ou K < 80 com bomba ligada |
+        | Umidade | Abaixo de 20% |
+        """)
+
+        st.subheader("🔁 Fluxo da solução")
+
+        st.code("""
+dados_sensores.csv
+        ↓
+Script Python lê a última leitura
+        ↓
+Sistema verifica regras críticas
+        ↓
+Se houver problema, envia alerta via AWS SNS
+        ↓
+Funcionário recebe e-mail com ação recomendada
+""", language="text")
+
+        st.info("""
+        O script também possui modo de simulação local caso as credenciais AWS
+        não estejam configuradas no ambiente.
+        """)
+
+    with tab_codigo_alerta:
+        st.subheader("🐍 Código do Serviço de Alerta")
+
+        if ALERTA_SCRIPT.exists():
+            st.success(f"Arquivo encontrado: {ALERTA_SCRIPT.relative_to(BASE_DIR)}")
+
+            codigo = ALERTA_SCRIPT.read_text(encoding="utf-8", errors="ignore")
+            st.code(codigo, language="python")
+
+            with open(ALERTA_SCRIPT, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar alerta_irrigacao_aws.py",
+                    data=f,
+                    file_name=ALERTA_SCRIPT.name,
+                    mime="text/x-python"
+                )
+        else:
+            st.warning("Script de alerta não encontrado.")
+            st.code(str(ALERTA_SCRIPT))
+
+    with tab_dados_alerta:
+        st.subheader("📊 Dados dos Sensores")
+
+        if ALERTA_CSV.exists():
+            st.success(f"Arquivo encontrado: {ALERTA_CSV.relative_to(BASE_DIR)}")
+
+            try:
+                df_alerta = pd.read_csv(ALERTA_CSV)
+
+                st.dataframe(df_alerta, use_container_width=True)
+
+                col1, col2, col3 = st.columns(3)
+                col1.metric("Linhas", df_alerta.shape[0])
+                col2.metric("Colunas", df_alerta.shape[1])
+                col3.metric("Arquivo", ALERTA_CSV.name)
+
+                st.subheader("Última leitura usada pelo alerta")
+                st.dataframe(df_alerta.tail(1), use_container_width=True)
+
+            except Exception as erro:
+                st.error("Não foi possível carregar o CSV.")
+                st.code(str(erro))
+
+            with open(ALERTA_CSV, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar dados_sensores.csv",
+                    data=f,
+                    file_name=ALERTA_CSV.name,
+                    mime="text/csv"
+                )
+        else:
+            st.warning("CSV dos sensores não encontrado.")
+            st.code(str(ALERTA_CSV))
+
+    with tab_evidencias_alerta:
+        st.subheader("🖼️ Evidências AWS")
+
+        if ALERTA_PRINTS_DIR.exists():
+            imagens = sorted(
+                list(ALERTA_PRINTS_DIR.glob("*.png")) +
+                list(ALERTA_PRINTS_DIR.glob("*.jpg")) +
+                list(ALERTA_PRINTS_DIR.glob("*.jpeg")) +
+                list(ALERTA_PRINTS_DIR.glob("*.PNG")) +
+                list(ALERTA_PRINTS_DIR.glob("*.JPG")) +
+                list(ALERTA_PRINTS_DIR.glob("*.JPEG"))
+            )
+
+            if imagens:
+                st.success(f"{len(imagens)} evidência(s) encontrada(s).")
+
+                imagem_destaque = st.selectbox(
+                    "Selecione uma evidência para visualizar",
+                    imagens,
+                    format_func=lambda x: x.name
+                )
+
+                st.image(
+                    str(imagem_destaque),
+                    caption=imagem_destaque.name,
+                    use_container_width=True
+                )
+
+                st.divider()
+
+                colunas = st.columns(2)
+
+                for index, imagem in enumerate(imagens):
+                    with colunas[index % 2]:
+                        st.image(
+                            str(imagem),
+                            caption=imagem.name,
+                            use_container_width=True
+                        )
+            else:
+                st.info("Nenhuma imagem encontrada na pasta de prints.")
+        else:
+            st.warning("Pasta de evidências não encontrada.")
+            st.code(str(ALERTA_PRINTS_DIR))
+
+    with tab_readme_alerta:
+        st.subheader("📘 Documentação do Serviço de Alertas")
+
+        if ALERTA_README.exists():
+            conteudo = ALERTA_README.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+        else:
+            st.warning("README dos alertas não encontrado.")
+            st.code(str(ALERTA_README))
 
 
 # =========================
