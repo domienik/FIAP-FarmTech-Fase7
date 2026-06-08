@@ -14,6 +14,9 @@ arquivo_r = FASE1_CAP1_DIR / "lavouras.R"
 arquivo_pdf = FASE1_CAP2_DIR / "relatorio.pdf"
 arquivo_tm = FASE1_CAP2_DIR / "project.tm"
 
+arquivo_readme_cap1 = FASE1_CAP1_DIR / "README.md"
+arquivo_readme_cap2 = FASE1_CAP2_DIR / "README.md"
+
 
 st.set_page_config(
     page_title="Fase 1 - Base de Dados",
@@ -58,6 +61,15 @@ def mostrar_pdf(arquivo_pdf):
         st.code(str(arquivo_pdf))
 
 
+def mostrar_markdown(arquivo_md):
+    if arquivo_md.exists():
+        conteudo = arquivo_md.read_text(encoding="utf-8", errors="ignore")
+        st.markdown(conteudo)
+    else:
+        st.warning("README não encontrado.")
+        st.code(str(arquivo_md))
+
+
 st.title("🌾 Fase 1 - Base de Dados, Lavouras e Introdução à IA")
 
 st.write("""
@@ -97,37 +109,83 @@ with tab_cap1:
 
     st.divider()
 
-    st.subheader("Código Python - Sistema de Lavouras")
+    tab_cap1_resumo, tab_cap1_python, tab_cap1_r, tab_cap1_readme = st.tabs([
+        "📌 Resumo",
+        "🐍 Código Python",
+        "📊 Código R",
+        "📘 README"
+    ])
 
-    if arquivo_python.exists():
-        st.success(f"Encontrado: {arquivo_python.relative_to(BASE_DIR)}")
-        mostrar_codigo(arquivo_python, "python")
+    with tab_cap1_resumo:
+        st.subheader("📌 Resumo do CAP1")
 
-        st.write("Comando para executar:")
-        st.code(
-            f"python {arquivo_python.relative_to(BASE_DIR)}",
-            language="bash"
-        )
-    else:
-        st.warning("Arquivo Python do CAP1 não encontrado.")
-        st.code(str(arquivo_python))
+        st.write("""
+        Este capítulo apresenta a primeira aplicação agrícola do projeto FarmTech.
+        A proposta foi desenvolver um sistema em Python para gerenciamento de
+        lavouras, cálculo de área de plantio e manejo de insumos.
+        """)
 
-    st.divider()
+        st.markdown("""
+        **Principais entregas:**
 
-    st.subheader("📊 Código R - Análise Estatística")
+        - Aplicação em Python com menu interativo;
+        - Cadastro e gerenciamento de dados agrícolas;
+        - Cálculo de área de plantio;
+        - Cálculo de manejo de insumos;
+        - Organização dos dados em vetores;
+        - Análise estatística básica em R;
+        - Integração dos arquivos à dashboard da Fase 7.
+        """)
 
-    if arquivo_r.exists():
-        st.success(f"Encontrado: {arquivo_r.relative_to(BASE_DIR)}")
-        mostrar_codigo(arquivo_r, "r")
+    with tab_cap1_python:
+        st.subheader("🐍 Código Python - Sistema de Lavouras")
 
-        st.write("Comando para executar:")
-        st.code(
-            f"Rscript {arquivo_r.relative_to(BASE_DIR)}",
-            language="bash"
-        )
-    else:
-        st.warning("Arquivo R do CAP1 não encontrado.")
-        st.code(str(arquivo_r))
+        if arquivo_python.exists():
+            st.success(f"Encontrado: {arquivo_python.relative_to(BASE_DIR)}")
+            mostrar_codigo(arquivo_python, "python")
+
+            st.write("Comando para executar:")
+            st.code(
+                f"python {arquivo_python.relative_to(BASE_DIR)}",
+                language="bash"
+            )
+        else:
+            st.warning("Arquivo Python do CAP1 não encontrado.")
+            st.code(str(arquivo_python))
+
+    with tab_cap1_r:
+        st.subheader("📊 Código R - Análise Estatística")
+
+        if arquivo_r.exists():
+            st.success(f"Encontrado: {arquivo_r.relative_to(BASE_DIR)}")
+            mostrar_codigo(arquivo_r, "r")
+
+            st.write("Comando para executar:")
+            st.code(
+                f"Rscript {arquivo_r.relative_to(BASE_DIR)}",
+                language="bash"
+            )
+        else:
+            st.warning("Arquivo R do CAP1 não encontrado.")
+            st.code(str(arquivo_r))
+
+    with tab_cap1_readme:
+        st.subheader("📘 README do CAP1")
+
+        if arquivo_readme_cap1.exists():
+            st.success(f"Encontrado: {arquivo_readme_cap1.relative_to(BASE_DIR)}")
+            mostrar_markdown(arquivo_readme_cap1)
+
+            with open(arquivo_readme_cap1, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP1",
+                    data=f,
+                    file_name=arquivo_readme_cap1.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP1 não encontrado.")
+            st.code(str(arquivo_readme_cap1))
 
 
 # =========================
@@ -136,46 +194,70 @@ with tab_cap1:
 with tab_cap2:
     st.header("CAP2 - Reconhecimento de Imagens com Teachable Machine")
 
-    st.write("""
-    No CAP2, foi desenvolvido um modelo de reconhecimento de imagens utilizando
-    o Teachable Machine do Google. O modelo classifica imagens em três categorias:
-    panelas, espátulas e assadeiras.
-    """)
+    subtab_visao_geral, subtab_readme = st.tabs([
+        "📌 Visão Geral",
+        "📘 README"
+    ])
 
-    col1, col2, col3 = st.columns(3)
+    with subtab_visao_geral:
+        st.write("""
+        No CAP2, foi desenvolvido um modelo de reconhecimento de imagens utilizando
+        o Teachable Machine do Google. O modelo classifica imagens em três categorias:
+        panelas, espátulas e assadeiras.
+        """)
 
-    col1.metric("Classes", "3")
-    col2.metric("Epochs", "50")
-    col3.metric("Learning rate", "0.001")
+        col1, col2, col3 = st.columns(3)
 
-    st.divider()
+        col1.metric("Classes", "3")
+        col2.metric("Epochs", "50")
+        col3.metric("Learning rate", "0.001")
 
-    st.subheader("📄 Relatório do Projeto")
+        st.divider()
 
-    if arquivo_pdf.exists():
-        st.success(f"Encontrado: {arquivo_pdf.relative_to(BASE_DIR)}")
-        mostrar_pdf(arquivo_pdf)
-    else:
-        st.warning("Relatório PDF não encontrado.")
-        st.code(str(arquivo_pdf))
+        st.subheader("📄 Relatório do Projeto")
 
-    st.divider()
+        if arquivo_pdf.exists():
+            st.success(f"Encontrado: {arquivo_pdf.relative_to(BASE_DIR)}")
+            mostrar_pdf(arquivo_pdf)
+        else:
+            st.warning("Relatório PDF não encontrado.")
+            st.code(str(arquivo_pdf))
 
-    st.subheader("📦 Arquivo do Modelo Teachable Machine")
+        st.divider()
 
-    if arquivo_tm.exists():
-        st.success(f"Encontrado: {arquivo_tm.relative_to(BASE_DIR)}")
+        st.subheader("📦 Arquivo do Modelo Teachable Machine")
 
-        with open(arquivo_tm, "rb") as f:
-            st.download_button(
-                label="📥 Baixar arquivo project.tm",
-                data=f,
-                file_name=arquivo_tm.name,
-                mime="application/octet-stream"
-            )
-    else:
-        st.warning("Arquivo project.tm não encontrado.")
-        st.code(str(arquivo_tm))
+        if arquivo_tm.exists():
+            st.success(f"Encontrado: {arquivo_tm.relative_to(BASE_DIR)}")
+
+            with open(arquivo_tm, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar arquivo project.tm",
+                    data=f,
+                    file_name=arquivo_tm.name,
+                    mime="application/octet-stream"
+                )
+        else:
+            st.warning("Arquivo project.tm não encontrado.")
+            st.code(str(arquivo_tm))
+
+    with subtab_readme:
+        st.subheader("📘 README do CAP2")
+
+        if arquivo_readme_cap2.exists():
+            st.success(f"Encontrado: {arquivo_readme_cap2.relative_to(BASE_DIR)}")
+            mostrar_markdown(arquivo_readme_cap2)
+
+            with open(arquivo_readme_cap2, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP2",
+                    data=f,
+                    file_name=arquivo_readme_cap2.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP2 não encontrado.")
+            st.code(str(arquivo_readme_cap2))
 
 
 st.divider()

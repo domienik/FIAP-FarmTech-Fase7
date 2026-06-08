@@ -146,7 +146,7 @@ st.markdown("""
 | Fase 2 integrada | ✅ Concluído |
 | Fase 3 integrada | ✅ Concluído |
 | Fase 4 integrada | ✅ Concluído |
-| Fase 5 integrada | ✅ Parcial |
+| Fase 5 integrada | ✅ Concluído |
 | Fase 6 integrada | ✅ Concluído |
 | Fase 5 integrada | ✅ Concluído |
 | Alertas AWS da Fase 7 | ✅ Concluído |
