@@ -10,6 +10,7 @@ FASE2_DIR = BASE_DIR / "assets" / "fase2"
 
 ESP32_DIR = FASE2_DIR / "cap1" / "ESP32"
 CODIGO_ESP32 = ESP32_DIR / "codigo_esp32.ino"
+README_ESP32 = ESP32_DIR / "README.md"
 GALERIA_DIR = ESP32_DIR / "assets"
 
 DATA_SCIENCE_DIR = FASE2_DIR / "cap1" / "data_science"
@@ -56,11 +57,12 @@ with tab_cap1:
     código do ESP32, imagens da montagem/simulação e arquivos de Data Science.
     """)
 
-    tab_links, tab_esp32, tab_galeria, tab_data_science = st.tabs([
+    tab_links, tab_esp32, tab_galeria, tab_data_science, tab_readme_esp32 = st.tabs([
         "🔗 Links",
         "🤖 Código ESP32",
         "🖼️ Galeria",
-        "📊 Data Science"
+        "📊 Data Science",
+        "📘 README"
     ])
 
     # aqui dentro ficam seus blocos antigos:
@@ -147,6 +149,39 @@ with tab_esp32:
     else:
         st.warning("Arquivo codigo_esp32.ino não encontrado.")
         st.code(str(CODIGO_ESP32))
+
+
+# =========================
+# ABA README ESP32
+# =========================
+with tab_readme_esp32:
+    st.header("📘 README - CAP1 ESP32")
+
+    st.write("""
+    Esta aba apresenta a documentação do CAP1 da Fase 2, relacionada ao projeto
+    com ESP32, sensores, simulação e integração com dados agrícolas.
+    """)
+
+    if README_ESP32.exists():
+        st.success(f"Arquivo encontrado: {README_ESP32.relative_to(BASE_DIR)}")
+
+        conteudo_readme = README_ESP32.read_text(
+            encoding="utf-8",
+            errors="ignore"
+        )
+
+        st.markdown(conteudo_readme)
+
+        with open(README_ESP32, "rb") as f:
+            st.download_button(
+                label="📥 Baixar README do CAP1 ESP32",
+                data=f,
+                file_name=README_ESP32.name,
+                mime="text/markdown"
+            )
+    else:
+        st.warning("README.md do CAP1 ESP32 não encontrado.")
+        st.code(str(README_ESP32))
 
 
 # =========================
