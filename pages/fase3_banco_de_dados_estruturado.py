@@ -10,11 +10,15 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 FASE3_DIR = BASE_DIR / "assets" / "fase3"
 CAP1_DIR = FASE3_DIR / "cap1"
 
-#Cap 10
+# CAP1
+README_CAP1 = CAP1_DIR / "README.md"
+
+# CAP10
 CAP10_DIR = FASE3_DIR / "cap10"
 CAP10_NOTEBOOK = CAP10_DIR / "aprendizado-de-maquina.ipynb"
+README_CAP10 = CAP10_DIR / "README.md"
 
-#GS
+# GS
 GS_DIR = FASE3_DIR / "gs"
 
 GS_PDF = GS_DIR / "global-solutions-burnout-predictor.pdf"
@@ -53,12 +57,13 @@ tab_cap1, tab_cap10, tab_gs = st.tabs([
 # CAP1
 # =========================
 with tab_cap1:
-    tab_oracle, tab_dados, tab_sql, tab_evidencias, tab_ir_alem = st.tabs([
+    tab_oracle, tab_dados, tab_sql, tab_evidencias, tab_ir_alem, tab_readme_cap1 = st.tabs([
         "🗄️ Oracle",
         "📄 Dados",
         "💻 Consultas SQL",
         "🖼️ Evidências",
-        "🚀 Ir Além"
+        "🚀 Ir Além",
+        "📘 README"
     ])
 
     # =========================
@@ -294,6 +299,28 @@ CREATE TABLE SENSORES_FARMTECH (
             else:
                 st.info("Nenhum notebook .ipynb encontrado na pasta da Fase 3.")
 
+    # =========================
+    # README CAP1
+    # =========================
+    with tab_readme_cap1:
+        st.header("📘 README - CAP1")
+
+        if README_CAP1.exists():
+            st.success(f"Arquivo encontrado: {README_CAP1.relative_to(BASE_DIR)}")
+
+            conteudo = README_CAP1.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(README_CAP1, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP1",
+                    data=f,
+                    file_name=README_CAP1.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP1 não encontrado.")
+            st.code(str(README_CAP1))
 
 # =========================
 # CAP10
@@ -316,10 +343,11 @@ with tab_cap10:
 
     st.divider()
 
-    tab_cap10_resumo, tab_cap10_dataset, tab_cap10_notebook = st.tabs([
+    tab_cap10_resumo, tab_cap10_dataset, tab_cap10_notebook, tab_cap10_readme = st.tabs([
         "📌 Resumo",
         "🌱 Dataset",
-        "📓 Notebook"
+        "📓 Notebook",
+        "📘 README"
     ])
 
     # =========================
@@ -412,6 +440,29 @@ with tab_cap10:
             st.warning("Notebook do CAP10 não encontrado.")
             st.code(str(CAP10_NOTEBOOK))
 
+    # =========================
+    # README CAP10
+    # =========================
+    with tab_cap10_readme:
+        st.subheader("📘 README do CAP10")
+
+        if README_CAP10.exists():
+            st.success(f"Arquivo encontrado: {README_CAP10.relative_to(BASE_DIR)}")
+
+            conteudo = README_CAP10.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(README_CAP10, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP10",
+                    data=f,
+                    file_name=README_CAP10.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP10 não encontrado.")
+            st.code(str(README_CAP10))
+
 # =========================
 # GS - GLOBAL SOLUTION
 # =========================
@@ -432,11 +483,12 @@ with tab_gs:
 
     st.divider()
 
-    tab_gs_resumo, tab_gs_pdf, tab_gs_dados, tab_gs_notebook = st.tabs([
+    tab_gs_resumo, tab_gs_pdf, tab_gs_dados, tab_gs_notebook, tab_gs_readme = st.tabs([
         "📌 Resumo",
         "📄 PDF",
         "📊 Dataset",
-        "📓 Notebook"
+        "📓 Notebook",
+        "📘 README"
     ])
 
     def mostrar_pdf(arquivo_pdf, label_download="📥 Baixar PDF"):
@@ -602,3 +654,26 @@ with tab_gs:
                 st.write("Arquivos encontrados na pasta:")
                 for arquivo in GS_DIR.iterdir():
                     st.write(f"✅ `{arquivo.name}`")
+
+    # =========================
+    # README GS
+    # =========================
+    with tab_gs_readme:
+        st.subheader("📘 README da Global Solution")
+
+        if GS_README.exists():
+            st.success(f"Arquivo encontrado: {GS_README.relative_to(BASE_DIR)}")
+
+            conteudo = GS_README.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(GS_README, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README da GS",
+                    data=f,
+                    file_name=GS_README.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md da Global Solution não encontrado.")
+            st.code(str(GS_README))
