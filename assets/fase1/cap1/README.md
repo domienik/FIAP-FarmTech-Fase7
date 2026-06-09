@@ -1,141 +1,94 @@
-# 🌾 Fase 1 - CAP1: Sistema de Gestão de Lavouras
+# Play na sua carreira em IA
 
-## 📚 Graduação ON em Inteligência Artificial - FIAP
+## 👨‍🎓 Integrantes
 
-## 👩🏻‍💻 Sobre o CAP1
+- [João Rafael Gonçalves Ramos (RM567908)](https://www.linkedin.com/company/inova-fusca)
+- [Leticia Angelim Guerra (RM567501)](https://www.linkedin.com/in/leticiaguerra)
+- [Matheus Guimarães França (RM567144)](https://www.linkedin.com/in/matheus-frança-7b9925405)
+- [Rivando Bezerra Cavalcanti Neto (RM568235)](https://www.linkedin.com/in/rivando-neto/)
+- [Tales Ferraz de Arruda Domienikan (RM567483)](http://linkedin.com/in/tales-domienikan-9446ba391/)
 
-Este capítulo representa uma das primeiras entregas práticas do projeto **FarmTech Solutions**, simulando o desenvolvimento de uma aplicação para apoiar uma fazenda em processo de migração para a Agricultura Digital.
+## 👩‍🏫 Professores
 
-A proposta foi desenvolver uma aplicação em **Python** para auxiliar no cadastro e gerenciamento de culturas agrícolas, além de utilizar **R** para realizar uma análise estatística básica dos dados produzidos.
+### Tutor(a)
 
----
+- [Ana Cristina dos Santos](https://www.linkedin.com/in/anacristinadossantos/)
 
-## 🎯 Objetivo
+### Coordenador(a)
 
-O objetivo principal deste CAP foi criar uma solução inicial para gestão agrícola, contemplando:
+- [André Godoi Chiovato](https://www.linkedin.com/in/andregodoichiovato/)
 
-- Cadastro de culturas agrícolas;
-- Cálculo de área de plantio;
-- Cálculo de manejo de insumos;
-- Organização dos dados em vetores;
-- Operações de entrada, saída, atualização e deleção de dados;
-- Uso de estruturas de repetição e decisão;
-- Análise estatística básica em R.
+## 📜 Descrição
 
----
+A proposta deste trabalho, ambientado em uma startup fictícia chamada **FarmTech Solutions**, foi desenvolver uma aplicação em **Python** para auxiliar uma fazenda na migração para a Agricultura Digital.
 
-## 🧩 Contexto do Problema
+A solução implementada suporta dois tipos de culturas, **soja** e **milho**, e é responsável por calcular:
 
-A **FarmTech Solutions** foi contratada por uma fazenda interessada em inovação e Agricultura Digital.
+- área de plantio;
+- quantidade necessária de insumos;
+- consumo estimado de água;
+- dados de manejo agrícola.
 
-Para atender essa demanda, foi proposta uma aplicação capaz de apoiar o controle de lavouras, permitindo registrar dados agrícolas, calcular áreas de plantio e estimar a quantidade de insumos necessários para cada cultura.
+A aplicação possui um menu interativo que permite:
 
----
+- entrada de dados;
+- consulta dos dados cadastrados;
+- atualização de informações;
+- remoção de registros;
+- saída do programa.
 
-## 🛠️ Tecnologias Utilizadas
+Na sequência, foi criado um script em **R** para calcular dados estatísticos básicos com os dados gerados pela aplicação em Python, como média, mediana e desvio padrão.
 
-- **Python** — desenvolvimento da aplicação principal;
-- **R** — análise estatística dos dados;
-- **GitHub** — versionamento do projeto;
-- **Terminal / Console** — execução da aplicação.
-
----
-
-## 📂 Arquivos do CAP1
+## 📁 Estrutura de pastas
 
 ```text
 cap1/
-├── lavouras.py      # Aplicação principal em Python
-├── lavouras.R       # Análise estatística em R
+├── lavouras.py      # Script em Python para cálculos e gestão da lavoura
+├── lavouras.R       # Script em R para análise estatística
 └── README.md        # Documentação do CAP1
 ```
 
----
+## 🔧 Como executar o código
 
-## 🐍 Aplicação Python
+### Pré-requisitos
 
-O arquivo `lavouras.py` contém a aplicação principal do CAP1.
+- Python 3 instalado
+- R instalado
 
-A aplicação foi desenvolvida com menu interativo no terminal, permitindo:
+### Passo a passo
 
-- Inserir dados de lavouras;
-- Exibir os dados cadastrados;
-- Atualizar informações;
-- Remover registros;
-- Calcular área de plantio;
-- Calcular manejo de insumos;
-- Encerrar o programa.
+1. Clone este repositório em sua máquina.
 
-### Como executar
-
-Na raiz do repositório, execute:
+2. Acesse a pasta do projeto pelo terminal:
 
 ```bash
-python assets/fase1/cap1/lavouras.py
+cd assets/fase1/cap1
 ```
 
----
-
-## 📊 Análise Estatística em R
-
-O arquivo `lavouras.R` foi utilizado para realizar cálculos estatísticos básicos com os dados agrícolas, como:
-
-- Média;
-- Desvio padrão;
-- Análise simples dos dados produzidos pela aplicação.
-
-### Como executar
-
-Na raiz do repositório, execute:
+3. Execute o script em Python:
 
 ```bash
-Rscript assets/fase1/cap1/lavouras.R
+python lavouras.py
 ```
 
----
+4. Interaja com o menu no terminal para adicionar, consultar, atualizar ou remover dados das lavouras.
 
-## 🧠 Conceitos Aplicados
+5. Execute o script em R para visualizar as estatísticas:
 
-Durante este capítulo, foram trabalhados conceitos fundamentais de programação e análise de dados:
-
-- Estruturas condicionais;
-- Laços de repetição;
-- Vetores;
-- Entrada e saída de dados;
-- Atualização e deleção de registros;
-- Cálculo de área;
-- Cálculo de insumos;
-- Estatística básica;
-- Organização de código;
-- Versionamento com GitHub.
-
----
+```bash
+Rscript lavouras.R
+```
 
 ## 📌 Integração com a Fase 7
 
-Na Fase 7, os materiais deste CAP foram integrados à dashboard central do projeto **FarmTech Solutions**.
+Este CAP foi integrado à dashboard central da **Fase 7**, permitindo visualizar diretamente:
 
-A página da Fase 1 permite visualizar:
+- o código Python;
+- o código R;
+- a documentação do CAP1;
+- os comandos de execução.
 
-- Código Python do sistema de lavouras;
-- Código R da análise estatística;
-- Comandos de execução;
-- Organização dos arquivos do CAP1.
-
-Essa integração demonstra como a primeira entrega do projeto evoluiu para compor uma solução maior, conectada às demais fases da graduação.
-
----
-
-## ✅ Status
-
-| Item | Status |
-|---|---|
-| Aplicação Python | ✅ Concluída |
-| Código R | ✅ Concluído |
-| Integração na dashboard Fase 7 | ✅ Concluída |
-| Documentação | ✅ Atualizada |
-
----
+A integração ajuda a centralizar as entregas anteriores em uma única aplicação Streamlit.
 
 ## 📋 Licença
 

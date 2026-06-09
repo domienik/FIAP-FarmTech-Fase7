@@ -25,10 +25,14 @@ CAP6_DIR = FASE2_DIR / "cap6"
 CAP6_APP = CAP6_DIR / "app.py"
 CAP6_ORACLE_CONFIG = CAP6_DIR / "referencia de configuracao Oracle"
 
+README_CAP6 = CAP6_DIR / "README.md"
+
 CAP7_DIR = FASE2_DIR / "cap7"
 
 CAP7_SCRIPT_R = CAP7_DIR / "script_novo.R"
 CAP7_EXCEL = CAP7_DIR / "tabela_formatada.xlsx"
+
+README_CAP7 = CAP7_DIR / "README.md"
 
 st.title("📡 Fase 2 - IoT, Sensores e ESP32")
 
@@ -409,10 +413,11 @@ with tab_cap6:
 
     st.divider()
 
-    tab_cap6_resumo, tab_cap6_codigo, tab_cap6_oracle = st.tabs([
+    tab_cap6_resumo, tab_cap6_codigo, tab_cap6_oracle, tab_cap6_readme = st.tabs([
         "📌 Resumo",
         "🐍 Código Python",
-        "🗄️ Configuração Oracle"
+        "🗄️ Configuração Oracle",
+        "📘 README"
     ])
 
     # =========================
@@ -506,6 +511,29 @@ with tab_cap6:
             st.warning("Arquivo de referência Oracle não encontrado.")
             st.code(str(CAP6_ORACLE_CONFIG))
 
+    # =========================
+    # README CAP6
+    # =========================
+    with tab_cap6_readme:
+        st.subheader("📘 README do CAP6")
+
+        if README_CAP6.exists():
+            st.success(f"Arquivo encontrado: {README_CAP6.relative_to(BASE_DIR)}")
+
+            conteudo = README_CAP6.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(README_CAP6, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP6",
+                    data=f,
+                    file_name=README_CAP6.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP6 não encontrado.")
+            st.code(str(README_CAP6))
+
 with tab_cap7:
     st.header("📊 CAP7 - Estatística com R e Base Excel")
 
@@ -523,12 +551,12 @@ with tab_cap7:
 
     st.divider()
 
-    tab_cap7_resumo, tab_cap7_excel, tab_cap7_r = st.tabs([
+    tab_cap7_resumo, tab_cap7_excel, tab_cap7_r, tab_cap7_readme = st.tabs([
         "📌 Resumo",
         "📄 Base Excel",
-        "📊 Código R"
+        "📊 Código R",
+        "📘 README"
     ])
-
     # =========================
     # RESUMO
     # =========================
@@ -635,6 +663,29 @@ with tab_cap7:
         else:
             st.warning("Arquivo R do CAP7 não encontrado.")
             st.code(str(CAP7_SCRIPT_R))
+
+    # =========================
+    # README CAP7
+    # =========================
+    with tab_cap7_readme:
+        st.subheader("📘 README do CAP7")
+
+        if README_CAP7.exists():
+            st.success(f"Arquivo encontrado: {README_CAP7.relative_to(BASE_DIR)}")
+
+            conteudo = README_CAP7.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(README_CAP7, "rb") as f:
+                st.download_button(
+                    label="📥 Baixar README do CAP7",
+                    data=f,
+                    file_name=README_CAP7.name,
+                    mime="text/markdown"
+                )
+        else:
+            st.warning("README.md do CAP7 não encontrado.")
+            st.code(str(README_CAP7))
 
 st.divider()
 

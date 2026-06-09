@@ -1,177 +1,196 @@
-# 🧠 Fase 1 - CAP2: Reconhecimento de Utensílios com Teachable Machine
+# FIAP - Faculdade de Informática e Administração Paulista
 
-## 📚 Graduação ON em Inteligência Artificial - FIAP
+# IA e seu mundo de possibilidades
 
-## 👩🏻‍💻 Sobre o CAP2
+## 👨‍🎓 Integrantes
 
-Este capítulo apresenta uma introdução prática ao uso de **Inteligência Artificial aplicada à visão computacional**, utilizando a plataforma **Teachable Machine**, do Google.
+- [João Rafael Gonçalves Ramos (RM567908)](https://www.linkedin.com/company/inova-fusca)
+- [Leticia Angelim Guerra (RM567501)](https://www.linkedin.com/in/leticiaguerra)
+- [Matheus Guimarães França (RM567144)](https://www.linkedin.com/in/matheus-frança-7b9925405)
+- [Rivando Bezerra Cavalcanti Neto (RM568235)](https://www.linkedin.com/in/rivando-neto/)
+- [Tales Ferraz de Arruda Domienikan (RM567483)](http://linkedin.com/in/tales-domienikan-9446ba391/)
 
-A proposta foi desenvolver um modelo capaz de reconhecer e classificar utensílios de cozinha a partir de imagens, demonstrando como ferramentas acessíveis de Machine Learning podem ser usadas para resolver problemas simples do cotidiano.
+## 👩‍🏫 Professores
+
+### Tutor(a)
+
+- [Ana Cristina dos Santos](https://www.linkedin.com/in/anacristinadossantos/)
+
+### Coordenador(a)
+
+- [André Godoi Chiovato](https://www.linkedin.com/in/andregodoichiovato/)
 
 ---
 
-## 🎯 Objetivo
+## 📜 Descrição
 
-O objetivo principal do CAP2 foi criar um modelo de classificação de imagens capaz de identificar diferentes utensílios de cozinha.
+O objetivo deste projeto foi desenvolver um modelo de **Inteligência Artificial** usando o **Teachable Machine**, do Google, para detectar e classificar automaticamente diferentes tipos de utensílios de cozinha a partir de imagens.
 
-O modelo desenvolvido classifica imagens em três categorias:
+A atividade trabalhou conceitos iniciais de **visão computacional** e **aprendizado de máquina**, utilizando uma ferramenta acessível e visual para treinar um modelo de classificação de imagens.
+
+O modelo foi treinado para reconhecer três classes:
 
 - **Panelas**
 - **Espátulas**
 - **Assadeiras**
 
-Além disso, a atividade teve como objetivo:
-
-- Familiarizar o grupo com conceitos básicos de Machine Learning;
-- Introduzir noções de visão computacional;
-- Utilizar o Teachable Machine para treinar um modelo interativo;
-- Avaliar o desempenho do modelo com imagens de teste;
-- Documentar o processo em um relatório PDF.
+Os resultados, etapas de treinamento, testes e análise crítica estão documentados no arquivo `relatorio.pdf`.
 
 ---
 
-## 🧩 Contexto do Problema
+## 🎯 Objetivo
 
-A cozinha é um ambiente com muitos utensílios diferentes. Encontrar ou identificar rapidamente o utensílio correto pode ser uma tarefa difícil em algumas situações, especialmente para pessoas com pouco espaço, baixa organização ou deficiência visual.
+Desenvolver um modelo capaz de classificar utensílios de cozinha a partir de imagens, avaliando sua precisão e observando o comportamento da IA diante de novos exemplos.
 
-Nesse contexto, a Inteligência Artificial pode auxiliar na identificação automática desses objetos por meio de imagens.
+A proposta também teve como objetivo:
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Teachable Machine** — criação e treinamento do modelo de imagem;
-- **Google Images** — coleta inicial das imagens;
-- **Machine Learning** — classificação supervisionada;
-- **Visão Computacional** — reconhecimento de padrões visuais;
-- **PDF** — documentação do processo;
-- **Arquivo `.tm`** — projeto exportado do Teachable Machine.
+- compreender o funcionamento básico de modelos de classificação de imagens;
+- utilizar o Teachable Machine para criar um projeto de IA;
+- coletar e organizar imagens por categoria;
+- testar o modelo com novas imagens;
+- analisar acertos, limitações e possibilidades de melhoria.
 
 ---
 
-## 📂 Arquivos do CAP2
+## 🧠 Metodologia
 
-```text
-cap2/
-├── relatorio.pdf    # Relatório completo do projeto
-├── project.tm       # Arquivo do projeto Teachable Machine
-└── README.md        # Documentação do CAP2
-```
+O desenvolvimento foi dividido em quatro etapas principais:
 
----
+1. **Coleta de imagens**  
+   Foram reunidas imagens de panelas, espátulas e assadeiras.
 
-## 🖼️ Coleta de Dados
+2. **Organização das classes**  
+   As imagens foram separadas em categorias dentro do Teachable Machine.
 
-Foram coletadas imagens de três classes de utensílios:
+3. **Treinamento do modelo**  
+   O modelo foi treinado usando as configurações avançadas da plataforma.
 
-- Panelas;
-- Espátulas;
-- Assadeiras.
-
-As imagens foram escolhidas buscando variedade de:
-
-- Formatos;
-- Cores;
-- Tamanhos;
-- Ângulos;
-- Modelos;
-- Materiais.
-
-Essa diversidade foi importante para ajudar o modelo a aprender características visuais relevantes de cada categoria.
+4. **Teste e avaliação**  
+   Novas imagens foram usadas para verificar se o modelo conseguia classificar corretamente os utensílios.
 
 ---
 
-## 🏋️ Treinamento do Modelo
-
-O treinamento foi realizado na plataforma **Teachable Machine**, utilizando o modo de **Classificação de Imagem**.
-
-As imagens foram organizadas em três classes:
-
-```text
-Panelas
-Espátulas
-Assadeiras
-```
-
-### Configurações utilizadas
+## ⚙️ Configurações do Treinamento
 
 | Parâmetro | Valor |
 |---|---:|
 | Epochs | 50 |
 | Batch Size | 16 |
 | Learning Rate | 0.001 |
-
-O Teachable Machine processou as imagens e treinou o modelo para reconhecer padrões visuais de cada classe.
-
----
-
-## 📊 Resultados Obtidos
-
-Após o treinamento, o modelo apresentou alta acurácia nas classes avaliadas.
-
-Segundo o relatório, os testes indicaram bons resultados para as três categorias:
-
-| Classe | Acurácia |
-|---|---:|
-| Panelas | 100% |
-| Espátulas | 100% |
-| Assadeiras | 100% |
-
-A matriz de confusão também indicou que as amostras de teste foram classificadas corretamente dentro das categorias previstas.
+| Classes | 3 |
 
 ---
 
-## ✅ Teste e Validação
+## 📁 Estrutura de arquivos
 
-Após o treinamento, o modelo foi testado com imagens que não haviam sido usadas na etapa de treino.
-
-Os testes mostraram que o modelo conseguiu identificar corretamente:
-
-- Diferentes tipos de panelas;
-- Espátulas com formatos variados;
-- Assadeiras de tamanhos e materiais diferentes.
-
-A etapa de validação ajudou a verificar se o modelo conseguia aplicar o aprendizado em novas imagens, e não apenas memorizar as imagens usadas no treinamento.
+```text
+cap2/
+├── project.tm       # Arquivo do projeto salvo no Teachable Machine
+├── relatorio.pdf    # Relatório detalhado da atividade
+└── README.md        # Documentação do CAP2
+```
 
 ---
 
-## 🔍 Análise Crítica
+## 📦 Arquivos principais
 
-Apesar do bom desempenho, o modelo possui algumas limitações:
+### `project.tm`
 
-- Pode confundir objetos visualmente parecidos;
-- Pode ser sensível a iluminação, fundo e ângulo da imagem;
-- Foi treinado com poucas classes;
-- Pode ter dificuldade com objetos fora do padrão usado no treinamento.
+Arquivo exportado do Teachable Machine contendo o projeto treinado, com as classes de imagens e as configurações utilizadas.
 
-Exemplo: uma panela muito rasa e aberta poderia ser confundida com uma assadeira, dependendo do ângulo da imagem.
+### `relatorio.pdf`
+
+Documento com a explicação completa do projeto, incluindo:
+
+- objetivos;
+- metodologia;
+- prints das etapas;
+- configuração do treinamento;
+- taxa de acurácia;
+- matriz de confusão;
+- testes realizados;
+- análise crítica;
+- sugestões de melhorias.
 
 ---
 
-## 🚀 Sugestões de Melhorias
+## 🔧 Como executar
 
-Para melhorar o modelo, seriam recomendadas as seguintes ações:
+### Pré-requisitos
 
-- Aumentar a quantidade de imagens por classe;
-- Usar imagens com fundos mais variados;
-- Incluir diferentes ângulos e perspectivas;
-- Adicionar uma classe extra para “outros objetos”;
-- Testar o modelo com imagens reais tiradas em diferentes ambientes;
-- Comparar diferentes configurações de treinamento.
+- Navegador web compatível;
+- Acesso ao [Teachable Machine](https://teachablemachine.withgoogle.com/);
+- Leitor de PDF para visualizar o relatório.
+
+### Passo a passo
+
+1. Abra o arquivo `relatorio.pdf` para entender o desenvolvimento do projeto.
+
+2. Acesse o Teachable Machine:
+
+```text
+https://teachablemachine.withgoogle.com/
+```
+
+3. Selecione a opção:
+
+```text
+Classificação de Imagem
+```
+
+4. Escolha a opção para abrir um projeto existente.
+
+5. Faça o upload do arquivo:
+
+```text
+project.tm
+```
+
+6. Teste novas imagens usando a webcam ou fazendo upload direto na plataforma.
+
+---
+
+## 📊 Resultados
+
+O modelo apresentou bom desempenho na classificação das três classes avaliadas.
+
+As categorias de panelas, espátulas e assadeiras possuem características visuais relativamente distintas, o que contribuiu para uma boa separação entre as classes.
+
+Mesmo assim, o modelo pode apresentar limitações em situações como:
+
+- imagens com baixa iluminação;
+- objetos em ângulos difíceis;
+- fundos poluídos;
+- utensílios visualmente parecidos;
+- exemplos muito diferentes dos usados no treinamento.
+
+---
+
+## 🚀 Possíveis melhorias
+
+Para melhorar o modelo, poderiam ser realizadas as seguintes ações:
+
+- aumentar a quantidade de imagens por classe;
+- usar imagens reais em ambientes variados;
+- testar diferentes fundos e iluminações;
+- incluir mais categorias de utensílios;
+- adicionar uma classe para “outros objetos”;
+- testar novos valores de epochs, batch size e learning rate.
 
 ---
 
 ## 📌 Integração com a Fase 7
 
-Na Fase 7, os materiais deste CAP foram integrados à dashboard central do projeto **FarmTech Solutions**.
+Este CAP foi integrado à dashboard central da **Fase 7** do projeto FarmTech Solutions.
 
-A página da Fase 1 permite visualizar:
+Na dashboard, é possível visualizar:
 
-- O relatório PDF do projeto;
-- O arquivo `project.tm`;
-- As informações principais sobre classes, treinamento e resultados.
+- resumo do CAP2;
+- relatório PDF;
+- arquivo do modelo `project.tm`;
+- README do capítulo.
 
-Essa integração demonstra a primeira experiência prática do grupo com visão computacional e classificação de imagens.
+Essa integração ajuda a consolidar as entregas das fases anteriores em uma única aplicação Streamlit.
 
 ---
 
@@ -181,9 +200,9 @@ Essa integração demonstra a primeira experiência prática do grupo com visão
 |---|---|
 | Coleta de imagens | ✅ Concluída |
 | Treinamento no Teachable Machine | ✅ Concluído |
-| Testes e validação | ✅ Concluídos |
+| Testes e avaliação | ✅ Concluídos |
 | Relatório PDF | ✅ Concluído |
-| Arquivo `.tm` | ✅ Disponível |
+| Arquivo `project.tm` | ✅ Disponível |
 | Integração na dashboard Fase 7 | ✅ Concluída |
 | Documentação | ✅ Atualizada |
 
