@@ -14,10 +14,14 @@ CAP1_DIR = BASE_DIR / "assets" / "fase4" / "cap1"
 FASE4_HOME = CAP1_DIR / "fase4_home.py"
 FASE4_EXPLORACAO = CAP1_DIR / "fase4_exploracao.py"
 FASE4_MODELAGEM = CAP1_DIR / "fase4_modelagem.py"
+README_CAP1 = CAP1_DIR / "README.md"
 
 # CAP3 - Seeds Classification ML
 CAP3_DIR = BASE_DIR / "assets" / "fase4" / "cap3"
 CAP3_NOTEBOOK = CAP3_DIR / "seeds_classification_ml.ipynb"
+README_CAP3 = CAP3_DIR / "README.md"
+
+
 
 
 st.title("📊 Fase 4 - Dashboard e Data Science")
@@ -58,6 +62,27 @@ def executar_pagina(arquivo):
     finally:
         os.chdir(pasta_atual)
 
+def mostrar_readme(arquivo_readme, titulo):
+    st.subheader(titulo)
+
+    if arquivo_readme.exists():
+        st.success(f"Arquivo encontrado: {arquivo_readme.relative_to(BASE_DIR)}")
+
+        conteudo = arquivo_readme.read_text(encoding="utf-8", errors="ignore")
+        st.markdown(conteudo)
+
+        with open(arquivo_readme, "rb") as f:
+            st.download_button(
+                label=f"📥 Baixar {titulo}",
+                data=f,
+                file_name=arquivo_readme.name,
+                mime="text/markdown",
+                key=f"download_{titulo}_{arquivo_readme.parent.name}"
+            )
+    else:
+        st.warning("README.md não encontrado.")
+        st.code(str(arquivo_readme))
+
 
 # =========================
 # CAP1
@@ -70,10 +95,11 @@ with tab_cap1:
     exploração de dados e modelagem preditiva.
     """)
 
-    tab_home, tab_exploracao, tab_modelagem = st.tabs([
+    tab_home, tab_exploracao, tab_modelagem, tab_readme_cap1 = st.tabs([
         "🏠 Home",
         "🔎 Exploração",
-        "🤖 Modelagem e Previsão"
+        "🤖 Modelagem e Previsão",
+        "📘 README"
     ])
 
     with tab_home:
@@ -84,6 +110,9 @@ with tab_cap1:
 
     with tab_modelagem:
         executar_pagina(FASE4_MODELAGEM)
+
+    with tab_readme_cap1:
+        mostrar_readme(README_CAP1, "📘 README do CAP1")
 
 
 # =========================
@@ -105,9 +134,10 @@ with tab_cap3:
 
     st.divider()
 
-    tab_cap3_resumo, tab_cap3_notebook = st.tabs([
+    tab_cap3_resumo, tab_cap3_notebook, tab_readme_cap3 = st.tabs([
         "📌 Resumo",
-        "📓 Notebook"
+        "📓 Notebook",
+        "📘 README"
     ])
 
     with tab_cap3_resumo:
@@ -192,3 +222,6 @@ with tab_cap3:
         else:
             st.warning("Notebook do CAP3 não encontrado.")
             st.code(str(CAP3_NOTEBOOK))
+
+    with tab_readme_cap3:
+        mostrar_readme(README_CAP3, "📘 README do CAP3")
