@@ -1,128 +1,347 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/matguifra/FIAP-GRAD-ON-IA/main/ANO1/FASE6/cap1-despertar-da-rede-neural/assets/logo-fiap.png" width="200"/>
-</p>
+# Fase 6 - Ir Além: Transfer Learning e Fine Tuning
 
-# 🚀 Projeto Ir Além: Usando Transfer Learning e Fine Tuning
-  
-### 📌 Fase 6 – Capítulo 1 | Opção 3.2 | FIAP
+## FarmTech Solutions
 
-## 👥 Integrantes
+## 👨‍🎓 Integrantes
+
 | Nome | RM |
-|------|----|
-| Leticia Angelim Guerra | 567501 |
-| Rivando Bezerra Cavalcanti Neto | 568235 |
-| Tales Ferraz de Arruda Domienikan | 567483 |
-| Matheus Guimarães França | 567144 |
-| João Rafael Gonçalves Ramos | 567908 |
+|---|---|
+| Leticia Angelim Guerra | RM567501 |
+| Rivando Bezerra Cavalcanti Neto | RM568235 |
+| Tales Ferraz de Arruda Domienikan | RM567483 |
+| Matheus Guimarães França | RM567144 |
+| João Rafael Gonçalves Ramos | RM567908 |
 
-## 🔗 Links
-- 📓 **Notebook:** [Abrir no GitHub](https://github.com/matguifra/FIAP-GRAD-ON-IA/blob/main/ANO1/FASE6/cap1-despertar-da-rede-neural/ir_alem/LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb)
-- [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jtmM6vI9VpiTcJZ1c8Gi_tN18H02I0kO?usp=sharing)
-- 🎥 **Vídeo:**  https://youtu.be/0Ky0SZkz3NI
 ---
 
 ## 📜 Descrição
 
-Implementação da opção **3.2 – Transfer Learning e Fine Tuning** do projeto "Ir Além" da Fase 6.
-Foram avaliadas duas hipóteses sobre o dataset de classificação binária (`cow` vs `dog`):
+Este projeto corresponde à opção **3.2 - Transfer Learning e Fine Tuning** do projeto **Ir Além** da Fase 6.
+
+A proposta foi comparar abordagens de classificação de imagens usando o dataset binário `cow` vs `dog`, avaliando se uma rede pré-treinada apresenta melhor desempenho do que uma rede treinada do zero e se a remoção do fundo das imagens melhora a classificação.
+
+O projeto utiliza **MobileNetV2**, pré-treinada na ImageNet, com fine tuning das últimas camadas para adaptar o modelo ao domínio específico do problema.
+
+---
+
+## 🎯 Objetivo
+
+O objetivo principal foi avaliar o impacto de **Transfer Learning**, **Fine Tuning** e **segmentação de fundo** em um dataset pequeno de classificação binária.
+
+As hipóteses avaliadas foram:
 
 1. Redes pré-treinadas superam redes treinadas do zero?
-2. A remoção do fundo (segmentação) melhora a classificação?
+2. A remoção do fundo das imagens melhora a classificação?
+3. O contexto visual do ambiente ajuda ou atrapalha o modelo?
 
 ---
 
-## 🛠️ Tecnologias e Arquitetura
+## 🐄🐕 Dataset
 
-- **Modelo base:** MobileNetV2 (pré-treinada na ImageNet)
-- **Framework:** TensorFlow / Keras
-- **Segmentação:** rembg (U²-Net)
-- **Ambiente:** Google Colab + Google Drive
+O dataset utilizado contém imagens de duas classes:
+
+| Classe | Descrição |
+|---|---|
+| `cow` | Vaca |
+| `dog` | Cachorro |
+
+A estrutura esperada do dataset no Google Drive é:
+
+```text
+MyDrive/dataset-classificacao/
+├── train/
+│   ├── cow/
+│   └── dog/
+├── val/
+│   ├── cow/
+│   └── dog/
+└── test/
+    ├── cow/
+    └── dog/
+```
+
+A divisão usada foi:
+
+| Split | Cow | Dog |
+|---|---:|---:|
+| Treino | 32 | 32 |
+| Validação | 4 | 4 |
+| Teste | 4 | 4 |
 
 ---
 
-## ⚙️ Fluxo de Processamento (Arquitetura do Projeto)
+## 🧠 Estratégia Técnica
 
-<p align="center">
-  <img src="./assets/arquitetura.svg" width="800"/>
-</p>
+### Modelo Base
 
-O fluxo do projeto consiste em: a partir do dataset original (cow/dog), são criados dois caminhos paralelos — um com as imagens originais e outro com o fundo removido pela `rembg`. Em ambos, a MobileNetV2 pré-treinada na ImageNet é usada como extratora de características (camadas congeladas), seguida de uma camada densa de classificação binária. Após o treinamento inicial, é aplicado Fine Tuning nas últimas 20 camadas com taxa de aprendizado reduzida. Os dois modelos são então comparados quanto à acurácia final.
+O modelo utilizado foi:
 
-## 🧠 Justificativa Técnica
+```text
+MobileNetV2
+```
 
-### Por que MobileNetV2?
-Equilíbrio entre acurácia e eficiência computacional. Treinada na ImageNet (>1M imagens), já possui filtros prontos para detectar texturas, bordas e formas complexas — vantagem decisiva diante do nosso dataset de apenas 80 imagens, no qual treinar uma CNN do zero teria capacidade limitada.
+A MobileNetV2 foi escolhida por equilibrar bom desempenho e eficiência computacional. Como ela já foi treinada na ImageNet, possui filtros capazes de reconhecer bordas, texturas, formas e padrões visuais úteis para classificação de imagens.
 
-### Estratégia de Fine Tuning
-- **Etapa 1:** congelamento total da MobileNetV2, treinando apenas a camada `Dense(1, sigmoid)` por 10 épocas com `Adam` (lr padrão).
-- **Etapa 2:** descongelamento das **últimas 20 camadas** com `learning_rate=1e-5` por 5 épocas.
+Essa escolha é especialmente importante porque o dataset usado no projeto é pequeno.
 
-A escolha de descongelar apenas as camadas finais preserva o conhecimento de baixo nível (bordas, texturas) aprendido na ImageNet e adapta somente a representação de alto nível ao domínio específico do problema.
+---
 
-### Pré-processamento
-- Redimensionamento para **224×224** (input nativo da MobileNetV2).
-- Normalização `rescale=1./255`.
-- Sem data augmentation — dataset pequeno e classes muito distintas tornam o ganho marginal.
+## 🔁 Transfer Learning
 
-### Por que rembg para segmentação?
-A `rembg` usa o modelo **U²-Net**, treinado para segmentação de primeiro plano genérico. Foi escolhida pela aplicação automática (sem necessidade de rotular máscaras manualmente) e bom desempenho em imagens com objetos centralizados.
+Na primeira etapa, a MobileNetV2 foi usada como extratora de características.
 
-## 🧪 Experimento de Segmentação
+A estratégia foi:
 
-Foi gerado um dataset paralelo aplicando `rembg.remove()` em cada imagem, salvando o resultado com fundo branco em `dataset_sem_fundo/`. O mesmo pipeline de Transfer Learning foi treinado nesse novo conjunto, permitindo comparação direta com o cenário original.
+- carregar a MobileNetV2 pré-treinada na ImageNet;
+- congelar as camadas da rede base;
+- adicionar uma camada final de classificação binária;
+- treinar apenas a nova camada final;
+- avaliar o desempenho em treino, validação e teste.
 
-O notebook inclui a visualização completa do processo de segmentação, demonstrando para imagens de cada classe: **(1)** a imagem original, **(2)** a máscara binária obtida pela rede U²-Net e **(3)** a imagem com o background recortado pela aplicação da máscara.
+Essa abordagem permite reaproveitar o conhecimento aprendido em milhões de imagens sem precisar treinar uma rede do zero.
+
+---
+
+## 🔧 Fine Tuning
+
+Na segunda etapa, foi aplicado **Fine Tuning**.
+
+A estratégia foi:
+
+- descongelar as últimas 20 camadas da MobileNetV2;
+- usar taxa de aprendizado reduzida;
+- treinar por mais algumas épocas;
+- adaptar as camadas finais ao problema específico `cow` vs `dog`.
+
+Essa técnica preserva o conhecimento visual geral da rede e ajusta apenas representações mais específicas.
+
+---
+
+## 🖼️ Segmentação com rembg
+
+Também foi criado um dataset paralelo com fundo removido usando a biblioteca:
+
+```text
+rembg
+```
+
+A `rembg` utiliza o modelo U²-Net para separar o primeiro plano do fundo da imagem.
+
+O objetivo foi verificar se remover o background ajudaria o modelo a focar apenas no animal.
+
+O experimento comparou:
+
+- imagens originais;
+- imagens com fundo removido.
+
+---
+
+## 🏗️ Arquitetura do Projeto
+
+O fluxo geral do projeto é:
+
+```text
+Dataset original cow/dog
+        ↓
+Separação em treino, validação e teste
+        ↓
+Caminho 1: imagens originais
+Caminho 2: imagens com fundo removido
+        ↓
+MobileNetV2 pré-treinada na ImageNet
+        ↓
+Transfer Learning
+        ↓
+Fine Tuning nas últimas camadas
+        ↓
+Avaliação dos resultados
+```
+
+A imagem da arquitetura está em:
+
+```text
+assets/arquitetura.svg
+```
+
+---
 
 ## 📊 Resultados
 
-| Abordagem | Treino (acc) | Validação (acc) | Teste (acc) | Tempo |
-|-----------|:------------:|:---------------:|:-----------:|:-----:|
-| Transfer Learning (originais) | 100% | 87,5% | **100%** | ~41s |
-| + Fine Tuning | 100% | 100% | **100%** | ~30s |
-| Transfer Learning (sem fundo) | 100% | 100% | **87,5%** | ~40s |
+| Abordagem | Treino | Validação | Teste | Tempo |
+|---|---:|---:|---:|---:|
+| Transfer Learning - imagens originais | 100% | 87,5% | 100% | ~41s |
+| Transfer Learning + Fine Tuning | 100% | 100% | 100% | ~30s |
+| Transfer Learning - imagens sem fundo | 100% | 100% | 87,5% | ~40s |
 
-### 📌 Análise
+---
 
-- A remoção de fundo **piorou o desempenho** (queda de 100% para 87,5% no teste). Isso indica que o contexto presente no fundo das imagens contribuía para a classificação correta — coerente com o fato da MobileNetV2 ter sido treinada na ImageNet, onde animais aparecem em seus ambientes naturais.
-- O `rembg` separa primeiro plano de fundo **sem entendimento semântico**: na imagem da vaca + bezerro, ambos foram preservados na máscara, pois ambos compõem o primeiro plano.
-- Para isolar um único objeto específico, técnicas mais avançadas como **segmentação semântica** (Mask R-CNN, SAM) seriam mais adequadas.
+## 📌 Análise dos Resultados
 
-## Limitações
+O melhor resultado foi obtido com **Transfer Learning + Fine Tuning**, alcançando 100% de acurácia no conjunto de teste.
 
-- Dataset com apenas **8 imagens de teste** → métricas têm alta variância e podem ocultar erros do modelo.
-- Classes muito distintas (`cow` vs `dog`) → tarefa "fácil" para uma rede pré-treinada na ImageNet, que já viu ambas as classes.
-- Sem data augmentation → seria essencial em datasets maiores ou para classes mais próximas entre si.
-- Avaliação baseada apenas em acurácia → métricas como precision, recall e F1 dariam um diagnóstico mais completo, especialmente em datasets desbalanceados.
+A remoção do fundo não melhorou o desempenho. Pelo contrário, o teste com imagens sem fundo caiu para 87,5%.
 
-## ▶️ Como executar
+Isso indica que o contexto visual das imagens pode ter ajudado a MobileNetV2 na classificação, já que a rede foi originalmente treinada em imagens naturais da ImageNet, onde animais costumam aparecer em ambientes reais.
 
-1. **Estrutura do dataset no Drive:**
-   ```
-   MyDrive/dataset-classificacao/
-   ├── train/
-   │   ├── cow/   (32 imagens)
-   │   └── dog/   (32 imagens)
-   ├── val/
-   │   ├── cow/   (4 imagens)
-   │   └── dog/   (4 imagens)
-   └── test/
-       ├── cow/   (4 imagens)
-       └── dog/   (4 imagens)
-   ```
+Também é importante observar que o conjunto de teste contém apenas 8 imagens, então as métricas podem variar bastante com poucas classificações erradas.
 
-2. Abrir o notebook no **Google Colab** e montar o Google Drive.
+---
 
-3. Executar as células sequencialmente.
+## ⚠️ Limitações
 
-4. **Atenção:** após o `pip install rembg`, reinicie o runtime (`Ambiente de execução → Reiniciar sessão`) e execute novamente a partir da célula de imports. Isso resolve o conflito de versão do `pillow`.
+As principais limitações do experimento foram:
 
-## 📁 Estrutura do Repositório
+- dataset pequeno;
+- apenas 8 imagens no conjunto de teste;
+- classes visualmente muito distintas;
+- avaliação baseada principalmente em acurácia;
+- ausência de data augmentation;
+- segmentação automática sem entendimento semântico completo.
 
+Em projetos maiores, seria recomendado usar mais imagens, aplicar data augmentation e avaliar métricas como precision, recall e F1-score.
+
+---
+
+## 🎥 Vídeo Demonstrativo
+
+O vídeo demonstrativo está disponível em:
+
+```text
+https://youtu.be/0Ky0SZkz3NI
 ```
-.
+
+---
+
+## 📓 Notebook
+
+O notebook principal do projeto é:
+
+```text
+LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb
+```
+
+Ele contém:
+
+- carregamento do dataset;
+- preparação das imagens;
+- aplicação de Transfer Learning;
+- Fine Tuning;
+- remoção de fundo com `rembg`;
+- treinamento dos modelos;
+- comparação dos resultados.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python** — linguagem principal;
+- **TensorFlow / Keras** — treinamento do modelo;
+- **MobileNetV2** — modelo pré-treinado;
+- **ImageNet** — base original de pré-treinamento;
+- **rembg** — remoção automática de fundo;
+- **U²-Net** — modelo usado pela rembg;
+- **Google Colab** — ambiente de execução;
+- **Google Drive** — armazenamento do dataset;
+- **Jupyter Notebook** — desenvolvimento da solução.
+
+---
+
+## 📁 Estrutura de Arquivos
+
+```text
+ir_alem/
 ├── README.md
 ├── LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb
 └── assets/
     └── arquitetura.svg
 ```
 
+---
+
+## ▶️ Como Executar
+
+### 1. Preparar o dataset no Google Drive
+
+Organize as imagens nesta estrutura:
+
+```text
+MyDrive/dataset-classificacao/
+├── train/
+│   ├── cow/
+│   └── dog/
+├── val/
+│   ├── cow/
+│   └── dog/
+└── test/
+    ├── cow/
+    └── dog/
+```
+
+### 2. Abrir o notebook no Google Colab
+
+Abra o arquivo:
+
+```text
+LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb
+```
+
+### 3. Montar o Google Drive
+
+Execute as células iniciais para montar o Drive e acessar o dataset.
+
+### 4. Instalar dependências
+
+O notebook instala as bibliotecas necessárias.
+
+> Atenção: após instalar `rembg`, pode ser necessário reiniciar o runtime do Colab e executar novamente a partir da célula de imports.
+
+### 5. Executar o pipeline
+
+Execute as células em sequência para:
+
+- carregar os dados;
+- treinar com imagens originais;
+- aplicar Fine Tuning;
+- gerar imagens sem fundo;
+- treinar com o dataset segmentado;
+- comparar os resultados.
+
+---
+
+## 📌 Integração com a Fase 7
+
+Este projeto Ir Além foi integrado à dashboard central da **Fase 7** do FarmTech Solutions.
+
+Na dashboard, é possível visualizar:
+
+- resumo da proposta;
+- arquitetura do projeto;
+- notebook do Ir Além;
+- README da entrega;
+- resultados comparativos;
+- vídeo demonstrativo.
+
+Essa integração permite consultar o projeto complementar da Fase 6 dentro da aplicação final centralizada.
+
+---
+
+## ✅ Status
+
+| Item | Status |
+|---|---|
+| Dataset cow/dog | ✅ Organizado |
+| Transfer Learning | ✅ Concluído |
+| Fine Tuning | ✅ Concluído |
+| Segmentação com rembg | ✅ Concluída |
+| Comparação dos resultados | ✅ Concluída |
+| Notebook | ✅ Disponível |
+| Arquitetura | ✅ Disponível |
+| Vídeo demonstrativo | ✅ Disponível |
+| Integração na dashboard Fase 7 | ✅ Concluída |
+| Documentação | ✅ Atualizada |
+
+---
+
+## 📋 Licença
+
+Este material segue o modelo acadêmico da FIAP utilizado para organização de projetos da **Graduação ON em Inteligência Artificial**.

@@ -4,9 +4,12 @@ import streamlit as st
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-FASE6_DIR = BASE_DIR / "assets" / "fase6"
+ASSETS_DIR = BASE_DIR / "assets"
+
+FASE6_DIR = ASSETS_DIR / "fase6"
 CAP1_DIR = FASE6_DIR / "cap1"
 
+# CAP1
 README_FILE = CAP1_DIR / "README.md"
 REQUIREMENTS_FILE = CAP1_DIR / "requirements.txt"
 DATA_YAML = CAP1_DIR / "data" / "dataset" / "data.yaml"
@@ -18,6 +21,33 @@ RESULTS_DIR = CAP1_DIR / "docs" / "results"
 EP30_DIR = RESULTS_DIR / "ep30"
 EP60_DIR = RESULTS_DIR / "ep60"
 
+# Ir Além
+# Ir Além
+IR_ALEM_DIR = CAP1_DIR / "ir_alem"
+IR_ALEM_README = IR_ALEM_DIR / "README.md"
+IR_ALEM_NOTEBOOK = IR_ALEM_DIR / "LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb"
+IR_ALEM_ARQUITETURA = IR_ALEM_DIR / "assets" / "arquitetura.svg"
+
+def mostrar_readme(arquivo_readme, titulo):
+    st.subheader(titulo)
+
+    if arquivo_readme.exists():
+        st.success(f"Arquivo encontrado: {arquivo_readme.relative_to(BASE_DIR)}")
+
+        conteudo = arquivo_readme.read_text(encoding="utf-8", errors="ignore")
+        st.markdown(conteudo)
+
+        with open(arquivo_readme, "rb") as f:
+            st.download_button(
+                label=f"📥 Baixar {titulo}",
+                data=f,
+                file_name=arquivo_readme.name,
+                mime="text/markdown",
+                key=f"download_{titulo}_{arquivo_readme.parent.name}"
+            )
+    else:
+        st.warning("README.md não encontrado.")
+        st.code(str(arquivo_readme))
 
 st.title("👁️ Fase 6 - Visão Computacional com YOLOv5")
 
@@ -56,12 +86,13 @@ with tab_cap1:
 
     st.divider()
 
-    tab_resumo, tab_dataset, tab_notebook, tab_scripts, tab_resultados = st.tabs([
+    tab_resumo, tab_dataset, tab_notebook, tab_scripts, tab_resultados, tab_readme_cap1 = st.tabs([
         "📌 Resumo",
         "📂 Dataset",
         "📓 Notebook",
         "🧾 Scripts",
-        "📊 Resultados"
+        "📊 Resultados",
+        "📘 README"
     ])
 
     # =========================
@@ -288,16 +319,18 @@ data/dataset/
             mostrar_galeria_resultados(EP60_DIR)
 
 
+    # =========================
+    # README CAP1
+    # =========================
+    with tab_readme_cap1:
+        mostrar_readme(README_FILE, "📘 README do CAP1")
+
+
 # =========================
 # IR ALÉM
 # =========================
 with tab_ir_alem:
     st.header("🚀 Ir Além - Transfer Learning e Fine Tuning")
-
-    IR_ALEM_DIR = CAP1_DIR / "ir_alem"
-    IR_ALEM_README = IR_ALEM_DIR / "README.md"
-    IR_ALEM_NOTEBOOK = IR_ALEM_DIR / "LeticiaAngelimGuerra_rm567501_pbl_fase6_ir_alem.ipynb"
-    IR_ALEM_ARQUITETURA = IR_ALEM_DIR / "assets" / "arquitetura.svg"
 
     st.write("""
     Esta seção apresenta o projeto **Ir Além** da Fase 6, usando Transfer Learning
@@ -313,11 +346,39 @@ with tab_ir_alem:
 
     st.divider()
 
-    tab_ir_resumo, tab_ir_arquitetura, tab_ir_notebook = st.tabs([
+    tab_ir_resumo, tab_ir_arquitetura, tab_ir_notebook, tab_ir_readme = st.tabs([
         "📌 Resumo",
         "🏗️ Arquitetura",
         "📓 Notebook",
+        "📘 README",
     ])
+
+    def mostrar_readme(arquivo_readme, titulo):
+        st.subheader(titulo)
+
+        if arquivo_readme.exists():
+            st.success(f"Arquivo encontrado: {arquivo_readme.relative_to(BASE_DIR)}")
+
+            conteudo = arquivo_readme.read_text(encoding="utf-8", errors="ignore")
+            st.markdown(conteudo)
+
+            with open(arquivo_readme, "rb") as f:
+                st.download_button(
+                    label=f"📥 Baixar {titulo}",
+                    data=f,
+                    file_name=arquivo_readme.name,
+                    mime="text/markdown",
+                    key=f"download_{titulo}_{arquivo_readme.parent.name}"
+                )
+        else:
+            st.warning("README.md não encontrado.")
+            st.code(str(arquivo_readme))
+
+        # =========================
+    # README IR ALÉM
+    # =========================
+    with tab_ir_readme:
+        mostrar_readme(IR_ALEM_README, "📘 README do Ir Além")
 
     # =========================
     # RESUMO
