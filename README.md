@@ -37,8 +37,6 @@ A solução reúne:
 - Visão computacional com YOLOv5;
 - Documentação e evidências do funcionamento.
 
-Além disso, foi implementado um serviço de alertas utilizando **AWS SNS**, capaz de enviar notificações por e-mail a partir de dados críticos dos sensores agrícolas.
-
 ---
 
 ## 🧭 Arquitetura da Solução
