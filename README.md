@@ -446,28 +446,8 @@ O vídeo demonstrativo apresenta:
 📌 Link do vídeo no YouTube, modo não listado:
 
 ```text
-INSERIR_LINK_DO_VIDEO_AQUI
+https://youtu.be/Qp0HjKJjMR8
 ```
-
----
-
-## 📤 Entrega no Portal FIAP
-
-A entrega final deve conter um arquivo `.txt` ou PDF com:
-
-- Link do GitHub;
-- Link do vídeo demonstrativo;
-- Nome completo dos integrantes.
-
----
-
-
-## 📋 Observações
-
-O projeto foi organizado diretamente na raiz do repositório porque este repositório é dedicado exclusivamente à Fase 7.  
-Por esse motivo, os diretórios `app.py`, `pages/`, `assets/`, `docs/`, `aws/` e `video/` ficam diretamente na raiz, evitando uma pasta redundante chamada `fase7/`.
-
-Essa estrutura mantém a organização solicitada no enunciado, mas adaptada ao funcionamento do Streamlit.
 
 ---
 
