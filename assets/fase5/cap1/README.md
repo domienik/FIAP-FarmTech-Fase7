@@ -1,50 +1,220 @@
-# FarmTech Solutions - Previsão de Rendimento de Safra com Machine Learning
+# Fase 5 - CAP1: Previsão de Rendimento de Safra com Machine Learning e AWS
 
-**Curso:** IA - FIAP | Fase 5
+## FarmTech Solutions
 
-**Grupo:** 8 | Turma: 1TIAOR
+**Curso:** IA - FIAP  
+**Fase:** 5  
+**Grupo:** 8  
+**Turma:** 1TIAOR
 
+---
 
-
-**Integrantes do Grupo:**
+## 👨‍🎓 Integrantes
 
 | Nome | RM |
-|------|-----|
-| João Rafael Gonçalves Ramos | rm567908 |
-| Letícia Angelim Guerra | rm567501 |
-| Matheus Guimarães França | rm567144 |
-| Rivando Bezerra Cavalcanti Neto | rm568235 |
-| Tales Ferraz de Arruda Domienikan | rm567483 |
+|---|---|
+| João Rafael Gonçalves Ramos | RM567908 |
+| Letícia Angelim Guerra | RM567501 |
+| Matheus Guimarães França | RM567144 |
+| Rivando Bezerra Cavalcanti Neto | RM568235 |
+| Tales Ferraz de Arruda Domienikan | RM567483 |
 
-## Sobre o Projeto
+---
 
-Este projeto foi desenvolvido para a FarmTech Solutions, empresa que presta serviços de Inteligência Artificial para uma fazenda de médio porte (200 hectares) que produz diversas culturas agrícolas.
+## 📜 Descrição
 
-O objetivo é analisar uma base de dados com informações de condições de solo e temperatura, relacionadas ao tipo de produto agrícola, para:
+Este projeto foi desenvolvido para a **FarmTech Solutions**, empresa voltada à aplicação de Inteligência Artificial no agronegócio.
 
-1. **Explorar os dados** e entender as relações entre as variáveis climáticas e o rendimento das safras
-2. **Identificar tendências** por meio de clusterização (aprendizado não supervisionado) e detectar outliers
-3. **Prever o rendimento** da safra utilizando cinco modelos de regressão supervisionada
+A proposta consiste em analisar uma base de dados agrícolas e climáticos para prever o **rendimento de safra** de diferentes culturas. Além da etapa de Machine Learning, a atividade também inclui uma análise de custos em nuvem usando a **AWS Pricing Calculator**, considerando a hospedagem do modelo em uma API.
 
-## Dataset
+O projeto combina:
 
-O dataset `crop_yield.csv` contém 155 registros de 4 culturas com as seguintes variáveis:
+- análise exploratória de dados;
+- clusterização;
+- detecção de outliers;
+- modelos supervisionados de regressão;
+- comparação de métricas;
+- estimativa de custo em AWS;
+- documentação e evidências da entrega.
+
+---
+
+## 🎯 Objetivo
+
+O objetivo principal foi construir uma solução capaz de apoiar a tomada de decisão agrícola por meio da previsão do rendimento de safra.
+
+A atividade teve como objetivos:
+
+- explorar uma base de dados com informações climáticas e agrícolas;
+- identificar relações entre clima, cultura e rendimento;
+- aplicar clusterização para encontrar padrões nos dados;
+- detectar possíveis outliers;
+- treinar cinco modelos de regressão supervisionada;
+- comparar os modelos com métricas adequadas;
+- estimar o custo de infraestrutura em nuvem para hospedar o modelo;
+- justificar a escolha da região AWS mais adequada.
+
+---
+
+## 🌾 Dataset
+
+O dataset utilizado foi:
+
+```text
+crop_yield.csv
+```
+
+A base contém **155 registros** relacionados a **4 culturas agrícolas**.
+
+### Variáveis
 
 | Variável | Descrição |
-|----------|-----------|
-| Crop | Nome da cultura agrícola |
-| Precipitation (mm day-1) | Precipitação em milímetros por dia |
-| Specific Humidity at 2 Meters (g/kg) | Umidade específica a 2 metros do solo |
-| Relative Humidity at 2 Meters (%) | Umidade relativa a 2 metros do solo |
-| Temperature at 2 Meters (C) | Temperatura a 2 metros do solo |
-| Yield | Rendimento em toneladas por hectare |
+|---|---|
+| `Crop` | Nome da cultura agrícola |
+| `Precipitation (mm day-1)` | Precipitação em milímetros por dia |
+| `Specific Humidity at 2 Meters (g/kg)` | Umidade específica a 2 metros do solo |
+| `Relative Humidity at 2 Meters (%)` | Umidade relativa a 2 metros do solo |
+| `Temperature at 2 Meters (C)` | Temperatura a 2 metros do solo |
+| `Yield` | Rendimento em toneladas por hectare |
 
-## Estrutura do Repositório
+---
 
+## 🧠 Etapas do Projeto
+
+### 1. Análise Exploratória dos Dados
+
+Nesta etapa, foram realizadas análises para compreender o comportamento das variáveis.
+
+Foram explorados pontos como:
+
+- estatísticas descritivas;
+- distribuição das variáveis;
+- comparação entre culturas;
+- correlações;
+- visualizações gráficas;
+- possíveis padrões entre clima e rendimento.
+
+### 2. Clusterização
+
+A etapa de aprendizado não supervisionado foi usada para identificar agrupamentos dentro da base.
+
+Foram aplicadas técnicas como:
+
+- método do cotovelo;
+- KMeans;
+- visualização com PCA;
+- análise de agrupamentos;
+- detecção de possíveis outliers.
+
+### 3. Modelagem Preditiva
+
+Foram utilizados cinco modelos de regressão supervisionada para prever o rendimento das safras.
+
+Modelos trabalhados:
+
+- Regressão Linear;
+- Ridge Regression;
+- Lasso Regression;
+- Random Forest Regressor;
+- Gradient Boosting Regressor.
+
+### 4. Comparação dos Modelos
+
+Os modelos foram avaliados com métricas adequadas para regressão, como:
+
+- R²;
+- MAE;
+- MSE;
+- RMSE;
+- validação cruzada.
+
+Essa comparação permite identificar qual modelo apresenta melhor desempenho para previsão do rendimento agrícola.
+
+---
+
+## ☁️ Entrega 2 - Computação em Nuvem AWS
+
+A segunda entrega analisou o custo de hospedar o modelo em nuvem para disponibilizá-lo por meio de uma API.
+
+O serviço escolhido foi:
+
+```text
+Amazon EC2
 ```
+
+A estimativa foi feita usando a **AWS Pricing Calculator**.
+
+### Configuração considerada
+
+| Parâmetro | Escolha | Motivo |
+|---|---|---|
+| Serviço | Amazon EC2 | Permite hospedar a API do modelo |
+| Instância | t3a.micro | Baixo custo e recursos suficientes para o cenário |
+| Sistema operacional | Linux | Conforme solicitado na atividade |
+| Armazenamento | 50 GB EBS gp3 | Custo menor e boa performance |
+| Modelo de cobrança | On-Demand | Conforme solicitado |
+| Uso mensal | 730 horas | Execução contínua 24/7 |
+
+---
+
+## 💰 Comparação de Custos AWS
+
+| Região | Código | Custo mensal estimado |
+|---|---|---:|
+| Virgínia do Norte | us-east-1 | US$ 10,86 |
+| São Paulo | sa-east-1 | US$ 18,62 |
+
+Apesar da região da Virgínia do Norte apresentar menor custo, a região de **São Paulo** foi escolhida por critérios técnicos e legais.
+
+### Justificativas para São Paulo
+
+- **LGPD:** manter os dados no Brasil reduz riscos legais relacionados ao tratamento de dados nacionais;
+- **Latência:** sensores no Brasil tendem a se comunicar mais rapidamente com servidores no Brasil;
+- **Soberania dos dados:** dados estratégicos de produção agrícola permanecem sob jurisdição nacional;
+- **Operação em tempo real:** menor latência favorece aplicações conectadas a sensores e monitoramento agrícola.
+
+---
+
+## 🎥 Vídeos Demonstrativos
+
+### Entrega 1 - Machine Learning
+
+```text
+https://youtu.be/rW4sRL_B4HM
+```
+
+### Entrega 2 - AWS
+
+```text
+https://youtu.be/Pp_OM9_DHxg
+```
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python 3** — linguagem principal;
+- **Pandas** — manipulação de dados;
+- **NumPy** — operações numéricas;
+- **Matplotlib** — visualização de dados;
+- **Seaborn** — visualizações estatísticas;
+- **Scikit-learn** — Machine Learning;
+- **Jupyter Notebook** — desenvolvimento da análise;
+- **AWS Pricing Calculator** — estimativa de custos em nuvem;
+- **Amazon EC2** — serviço de computação em nuvem avaliado.
+
+---
+
+## 📁 Estrutura de Arquivos
+
+```text
+cap1/
 ├── README.md
 ├── crop_yield.csv
+├── executed_notebook.ipynb
 ├── RivandoBezerra_rm568235_pbl_fase4.ipynb
+├── ROTEIRO_VIDEO.md
+├── ir_alem
 └── ATV5_2/
     ├── 01-sp-instancia-t3a-micro-custo.png
     ├── 02-armazenamento-ebs-gp3-50gb.png
@@ -52,109 +222,80 @@ O dataset `crop_yield.csv` contém 155 registros de 4 culturas com as seguintes 
     └── 04-comparacao-preco-final-sp-vs-virginia.png
 ```
 
-## Notebook
+---
 
-Todo o desenvolvimento, análise e conclusões estão documentados no Jupyter Notebook:
+## 🔧 Como Executar
 
-**[RivandoBezerra_rm568235_pbl_fase4.ipynb](./RivandoBezerra_rm568235_pbl_fase4.ipynb)**
+### Pré-requisitos
 
-O notebook está organizado nas seguintes seções:
+- Python 3.8 ou superior;
+- Jupyter Notebook, JupyterLab, Google Colab ou VS Code com suporte a notebooks.
 
-1. **Análise Exploratória (EDA)** - Estatísticas descritivas, distribuições, correlações e visualizações
-2. **Clusterização** - Método do cotovelo, KMeans, visualização com PCA e detecção de outliers
-3. **Modelos Preditivos** - Cinco algoritmos de regressão supervisionada:
-   - Regressão Linear
-   - Ridge Regression
-   - Lasso Regression
-   - Random Forest Regressor
-   - Gradient Boosting Regressor
-4. **Comparação de Modelos** - Métricas R², MAE, MSE, RMSE e validação cruzada
-5. **Conclusões** - Pontos fortes, limitações e recomendações
+Instale as dependências principais:
 
-## Como Executar
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
 
-1. Certifique-se de ter Python 3.8+ instalado
-2. Instale as dependências:
-   ```bash
-   pip install pandas numpy matplotlib seaborn scikit-learn
-   ```
-3. Abra o notebook:
-   ```bash
-   jupyter notebook RivandoBezerra_rm568235_pbl_fase4.ipynb
-   ```
+### Executar o notebook
 
-## Vídeo Demonstrativo - Entrega 1
+Acesse a pasta do CAP1:
 
-[Link do vídeo no YouTube](https://youtu.be/rW4sRL_B4HM)
+```bash
+cd assets/fase5/cap1
+```
+
+Abra o notebook:
+
+```bash
+jupyter notebook RivandoBezerra_rm568235_pbl_fase4.ipynb
+```
+
+ou:
+
+```bash
+jupyter notebook executed_notebook.ipynb
+```
+
+Execute as células em sequência para visualizar a análise, os modelos e os resultados.
 
 ---
 
-## Entrega 2 — Computação em Nuvem AWS
+## 📌 Integração com a Fase 7
 
-O modelo de Machine Learning da Entrega 1 precisa estar acessível via API para receber dados dos sensores em tempo real. Para isso, estimamos o custo de hospedagem em nuvem utilizando a **AWS Pricing Calculator**, comparando duas regiões da Amazon Web Services.
+Este CAP foi integrado à dashboard central da **Fase 7** do projeto FarmTech Solutions.
 
-### Serviço Utilizado
+Na dashboard, é possível visualizar:
 
-**Amazon EC2** — serviço de máquinas virtuais da AWS, escolhido por permitir configurar exatamente os recursos exigidos no projeto.
+- resumo do projeto;
+- dataset `crop_yield.csv`;
+- notebooks da entrega;
+- análise de custos AWS;
+- prints da AWS Pricing Calculator;
+- roteiro do vídeo;
+- documentação do CAP1.
 
-### Configuração da Máquina
-
-| Parâmetro | Escolha | Motivo |
-|---|---|---|
-| Instância | t3a.micro | 2 vCPUs, 1 GiB RAM, até 5 Gbps. Processador AMD, ~10% mais barato que t3 Intel |
-| Sistema Operacional | Linux | Exigido pelo enunciado |
-| Armazenamento | 50 GB EBS gp3 | gp3 é mais barato e mais performático que gp2 |
-| Modelo de cobrança | On-Demand | Exigido pelo enunciado (100%) |
-| Uso mensal | 730 horas | Funcionamento contínuo 24/7 |
-
-### Calculadora AWS
-
-**São Paulo (sa-east-1) — Custo mensal: $18,62**
-
-![Instância t3a.micro selecionada em São Paulo — $18,62/mês](ATV5_2/01-sp-instancia-t3a-micro-custo.png)
-
-**Armazenamento EBS gp3 — 50 GB**
-
-![Configuração de armazenamento EBS gp3 50 GB](ATV5_2/02-armazenamento-ebs-gp3-50gb.png)
-
-**Virgínia do Norte (us-east-1) — Custo mensal: $10,86**
-
-![Instância t3a.micro selecionada na Virgínia — $10,86/mês](ATV5_2/03-virginia-instancia-t3a-micro-custo.png)
-
-### Comparação de Custos
-
-| Região | Código | Preço Mensal |
-|---|---|---|
-| Virgínia do Norte | us-east-1 | $10,86 |
-| São Paulo | sa-east-1 | $18,62 |
-
-![Comparação de preço final — São Paulo vs Virgínia](ATV5_2/04-comparacao-preco-final-sp-vs-virginia.png)
-
-### Região Escolhida: São Paulo
-
-Apesar da Virgínia do Norte ser mais barata, a região de São Paulo foi escolhida pelos seguintes motivos:
-
-**1. Conformidade com a LGPD** — A Lei Geral de Proteção de Dados (Lei 13.709/2018) restringe o armazenamento de dados nacionais fora do território brasileiro. Hospedar os dados dos sensores no exterior configuraria risco legal para a operação da fazenda.
-
-**2. Latência** — Sensores localizados no Brasil comunicando com um servidor em São Paulo operam com latência inferior a 30ms. O mesmo servidor nos EUA elevaria essa latência para aproximadamente 200ms, comprometendo o monitoramento em tempo real.
-
-**3. Soberania dos Dados** — Dados estratégicos de produção agrícola mantidos em território nacional estão protegidos da jurisdição de leis estrangeiras, como o Patriot Act americano.
-
-### Conclusão
-
-A economia gerada pelo servidor nos EUA não compensa os riscos legais, a perda de performance e a exposição dos dados a legislações estrangeiras. São Paulo é a única opção que atende simultaneamente aos requisitos técnicos, legais e operacionais do projeto.
-
-### Vídeo Demonstrativo - Entrega 2
-
-[[LINK DO YOUTUBE AQUI](https://youtu.be/Pp_OM9_DHxg)]
+A Fase 5 também foi conectada ao módulo de **alertas AWS da Fase 7**, que usa AWS SNS para enviar notificações baseadas em dados de sensores agrícolas.
 
 ---
 
-## Tecnologias Utilizadas
+## ✅ Status
 
-- Python 3
-- Pandas e NumPy (manipulação de dados)
-- Matplotlib e Seaborn (visualização)
-- Scikit-learn (Machine Learning)
-- Jupyter Notebook
-- AWS Pricing Calculator
+| Item | Status |
+|---|---|
+| Dataset `crop_yield.csv` | ✅ Disponível |
+| Análise exploratória | ✅ Concluída |
+| Clusterização | ✅ Concluída |
+| Modelos de regressão | ✅ Concluídos |
+| Comparação de métricas | ✅ Concluída |
+| Estimativa de custos AWS | ✅ Concluída |
+| Prints da AWS Pricing Calculator | ✅ Disponíveis |
+| Vídeos demonstrativos | ✅ Disponíveis |
+| Integração na dashboard Fase 7 | ✅ Concluída |
+| Documentação | ✅ Atualizada |
+
+---
+
+## 📋 Licença
+
+Este material segue o modelo acadêmico da FIAP utilizado para organização de projetos da **Graduação ON em Inteligência Artificial**.

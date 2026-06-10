@@ -5,7 +5,9 @@ import streamlit as st
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-FASE5_DIR = BASE_DIR / "assets" / "fase5"
+ASSETS_DIR = BASE_DIR / "assets"
+
+FASE5_DIR = ASSETS_DIR / "fase5"
 CAP1_DIR = FASE5_DIR / "cap1"
 
 README_FILE = CAP1_DIR / "README.md"
@@ -22,6 +24,27 @@ ALERTA_SCRIPT = AWS_DIR / "alerta_irrigacao_aws.py"
 ALERTA_CSV = AWS_DIR / "dados_sensores.csv"
 ALERTA_README = AWS_DIR / "README.md"
 ALERTA_PRINTS_DIR = AWS_DIR / "prints"
+
+def mostrar_readme(arquivo_readme, titulo):
+    st.subheader(titulo)
+
+    if arquivo_readme.exists():
+        st.success(f"Arquivo encontrado: {arquivo_readme.relative_to(BASE_DIR)}")
+
+        conteudo = arquivo_readme.read_text(encoding="utf-8", errors="ignore")
+        st.markdown(conteudo)
+
+        with open(arquivo_readme, "rb") as f:
+            st.download_button(
+                label=f"📥 Baixar {titulo}",
+                data=f,
+                file_name=arquivo_readme.name,
+                mime="text/markdown",
+                key=f"download_{titulo}_{arquivo_readme.parent.name}"
+            )
+    else:
+        st.warning("README.md não encontrado.")
+        st.code(str(arquivo_readme))
 
 
 st.title("☁️ Fase 5 - AWS, Cloud e Alertas")
@@ -187,15 +210,21 @@ Funcionário recebe e-mail com ação recomendada
 
                 st.divider()
 
-                colunas = st.columns(2)
+                imagens_galeria = [img for img in imagens if img != imagem_destaque]
 
-                for index, imagem in enumerate(imagens):
-                    with colunas[index % 2]:
-                        st.image(
-                            str(imagem),
-                            caption=imagem.name,
-                            use_container_width=True
-                        )
+                if imagens_galeria:
+                    st.divider()
+                    st.subheader("📁 Outras evidências")
+
+                    colunas = st.columns(2)
+
+                    for index, imagem in enumerate(imagens_galeria):
+                        with colunas[index % 2]:
+                            st.image(
+                                str(imagem),
+                                caption=imagem.name,
+                                use_container_width=True
+                            )
             else:
                 st.info("Nenhuma imagem encontrada na pasta de prints.")
         else:
@@ -232,11 +261,12 @@ with tab_cap1:
 
     st.divider()
 
-    tab_resumo, tab_dataset, tab_notebooks, tab_aws = st.tabs([
+    tab_resumo, tab_dataset, tab_notebooks, tab_aws, tab_readme_cap1 = st.tabs([
         "📌 Resumo",
         "🌾 Dataset",
         "📓 Notebooks",
         "☁️ AWS",
+        "📘 README",
     ])
 
     # =========================
@@ -424,3 +454,9 @@ with tab_cap1:
             st.markdown(conteudo)
         else:
             st.info("ROTEIRO_VIDEO.md não encontrado.")
+
+    # =========================
+    # README CAP1
+    # =========================
+    with tab_readme_cap1:
+        mostrar_readme(README_FILE, "📘 README do CAP1")
